@@ -11,7 +11,7 @@ void list::prepend(Message& f) {                    //$$$$$$$$$$$$$$$ int only f
 	h = temp;
 	list::size = list::size++;
 }
-/* this function work for int - need special modifications for other types
+/* this function works for int - need special modifications for other types*/
 void list::print() const {
 	listelem* temp = h;
 	while (temp != 0) {
@@ -19,7 +19,7 @@ void list::print() const {
 		temp = temp->next;
 	}
 }
-*/ 
+ 
 void list::delete_head() {
 	listelem* temp = h;
 	h = h->next;
@@ -70,15 +70,22 @@ void list::delete_current() {
 int main() {
 	list *p; {
 		list w;
-		Message *tmp1,*tmp2;
+		Message *tmp1,*tmp2,*tmp3;
 		tmp1 = new Message("alibaba", "shodedim", "tellmestory"); // aloocita
 		tmp2 = new Message("Shakira", "Eminem", "Soy Mujera"); // aloocita
+		tmp3 = new Message("Betty", "Bam", "ohevet bambam"); // aloocita
 
 		
 		w.prepend(*tmp1);
 		w.go_to_first();
 		w.prepend(*tmp2);
 		w.print();
+		w.prepend(*tmp3);
+		w.go_to_first();
+		w.next();
+
+		Message *tmp4 = w.get_current();
+		w.delete_current();
 		/*
 		w.prepend(6);
 		w.prepend(10);
