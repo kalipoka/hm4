@@ -4,14 +4,14 @@
 
 using std::cout;
 
-void list::prepend(int f) {                    //$$$$$$$$$$$$$$$ int only for testing - change to Follower later
+void list::prepend(Message& f) {                    //$$$$$$$$$$$$$$$ int only for testing - change to Follower later
 	listelem* temp = new listelem; // allocation
 	temp->next = h;
-	temp->data = f;
+	temp->data = &f;  //  NEW Syntax 
 	h = temp;
 	list::size = list::size++;
 }
-
+/* this function work for int - need special modifications for other types
 void list::print() const {
 	listelem* temp = h;
 	while (temp != 0) {
@@ -19,6 +19,7 @@ void list::print() const {
 		temp = temp->next;
 	}
 }
+*/ 
 void list::delete_head() {
 	listelem* temp = h;
 	h = h->next;
@@ -39,7 +40,7 @@ void list::next() {
 	list::iterator = list::iterator->next;
 }
 
-int list::get_current() {                          //$$$$$$$$$$$$$$$ int only for testing - change to Follower later
+Message* list::get_current() {                          //$$$$$$$$$$$$$$$ int only for testing - change to Follower later
 	return list::iterator->data;
 }
 
@@ -69,7 +70,16 @@ void list::delete_current() {
 int main() {
 	list *p; {
 		list w;
-		w.prepend(4);
+		Message *tmp1,*tmp2;
+		tmp1 = new Message("alibaba", "shodedim", "tellmestory"); // aloocita
+		tmp2 = new Message("Shakira", "Eminem", "Soy Mujera"); // aloocita
+
+		
+		w.prepend(*tmp1);
+		w.go_to_first();
+		w.prepend(*tmp2);
+		w.print();
+		/*
 		w.prepend(6);
 		w.prepend(10);
 		w.prepend(15);
@@ -82,6 +92,7 @@ int main() {
 		cout << "deleted\n";
 		w.release();
 		//w.print();
+		*/
 	}
 
 	return 0;
