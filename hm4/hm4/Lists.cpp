@@ -18,6 +18,7 @@ void list::print() const {
 		temp = temp->next;
 	}
 }
+
 void list::delete_head() {
 	listelem* temp = h;
 	h = h->next;
@@ -58,7 +59,7 @@ void list::delete_current() {
 		}
 		//here we found the element that is previous to the one that we need to delete
 		temp->next = list::iterator->next;
-		delete (list::iterator);
+		delete (list::iterator);       //free memory
 		list::size--;
 		list::iterator = NULL;
 	}
