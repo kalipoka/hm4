@@ -133,7 +133,7 @@ void list_f::delete_current() {
 }
 */
 
-/*
+
 int main() {
 	list *p; {
 		list w;
@@ -153,7 +153,7 @@ int main() {
 
 		Message *curent = w.get_current();
 		w.delete_current();
-		
+		/*
 		w.prepend(6);
 		w.prepend(10);
 		w.prepend(15);
@@ -166,9 +166,8 @@ int main() {
 		cout << "deleted\n";
 		w.release();
 		//w.print();
-		
+		*/
 	}
 
 	return 0;
 }
-*/
