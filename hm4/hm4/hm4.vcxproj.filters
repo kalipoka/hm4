@@ -18,12 +18,30 @@
     <ClCompile Include="Lists.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Message.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Follower.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Leader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="defs.H">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Lists.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Message.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Follower.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Leader.H">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

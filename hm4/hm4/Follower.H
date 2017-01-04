@@ -3,6 +3,7 @@
 
 #include "defs.H"
 
+using std::string;
 
 class Follower {
 public:
