@@ -5,7 +5,7 @@
 using std::cout;
 
 void list::prepend(Message& f) {                    //$$$$$$$$$$$$$$$ int only for testing - change to Follower later
-	listelem* temp = new listelem; // allocation
+	Node* temp = new Node; // allocation
 	temp->next = h;
 	temp->data = &f;  //  NEW Syntax 
 	h = temp;
@@ -13,7 +13,7 @@ void list::prepend(Message& f) {                    //$$$$$$$$$$$$$$$ int only f
 }
 /* this function works for int - need special modifications for other types*/
 void list::print() const {
-	listelem* temp = h;
+	Node* temp = h;
 	while (temp != 0) {
 		cout << temp->data << "\n";
 		temp = temp->next;
@@ -21,9 +21,8 @@ void list::print() const {
 }
  
 void list::delete_head() {
-	listelem* temp = h;
+	Node* temp = h;
 	h = h->next;
-	//delete temp->data;
 	delete temp;                   //free memory
 }
 
@@ -54,7 +53,7 @@ void list::delete_current() {
 		list::delete_head();
 	else
 	{
-		listelem* temp = list::h;
+		Node* temp = list::h;
 		while (temp->next != list::iterator)                //searching for the element before the deleted one
 		{
 			temp = temp->next;
@@ -86,6 +85,7 @@ int main() {
 
 		Message *tmp4 = w.get_current();
 		w.delete_current();
+		w.release();
 		/*
 		w.prepend(6);
 		w.prepend(10);

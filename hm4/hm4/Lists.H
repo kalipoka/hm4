@@ -7,15 +7,15 @@
 class Follower;
 class Leader;
 
-struct listelem {
+struct Node {
 	Message* data;       // $$$$$$$$$$$$$$$ int only for testing - change to Follower later
-	listelem* next;
+	Node* next;
 };
 
 class list {
 private:
-	listelem* h; //head of the list
-	listelem* iterator; //Iterator
+	Node* h; //head of the list
+	Node* iterator; //Iterator
 	int size = 0; // not sure if the right place
 public:
 	list() {						 //not sure what it is - probably creator
