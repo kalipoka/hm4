@@ -2,7 +2,6 @@
 #define _MESSAGE_H_
 
 #include "defs.H"
-#include "Lists.H"
 #include <string>
 
 using namespace std;
@@ -32,6 +31,5 @@ public:
 	Result ReadMessage(int messageNum);
 private:
 	// To do
-	
 };
 #endif
