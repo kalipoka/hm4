@@ -1,16 +1,17 @@
 #include<iostream>
 #include "Lists.H"
+#include "Message.H"
 
 using std::cout;
 
-void list::prepend(int f) {                    //$$$$$$$$$$$$$$$ int only for testing - change to Follower later
-	listelem* temp = new listelem; // allocation
-	temp->next = h;
-	temp->data = f;
-	h = temp;
+void list::prepend(Message m) {                    //$$$$$$$$$$$$$$$ int only for testing - change to Follower later
+	Node* temp = new Node; // allocation
+	temp->next = head;
+	temp->data = m;
+	head = temp;
 	list::size = list::size++;
 }
-
+/*
 void list::print() const {
 	listelem* temp = h;
 	while (temp != 0) {
@@ -18,27 +19,28 @@ void list::print() const {
 		temp = temp->next;
 	}
 }
+*/
 
 void list::delete_head() {
-	listelem* temp = h;
-	h = h->next;
+	Node* temp = head;
+	head = head->next;
 	delete temp;                   //free memory
 }
-
+/*
 void list::release() {
 	while (h != 0)
 		delete_head();
 }
-
+*/
 void list::go_to_first() {
-	list::iterator = list::h;
+	list::iterator = list::head;
 }
 
 void list::next() {
 	list::iterator = list::iterator->next;
 }
 
-int list::get_current() {                          //$$$$$$$$$$$$$$$ int only for testing - change to Follower later
+Message list::get_current() {                          //$$$$$$$$$$$$$$$ int only for testing - change to Follower later
 	return list::iterator->data;
 }
 
@@ -48,11 +50,11 @@ int list::get_size() {
 
 void list::delete_current() {
 
-	if (list::iterator == list::h)
+	if (list::iterator == list::head)
 		list::delete_head();
 	else
 	{
-		listelem* temp = list::h;
+		Node* temp = list::head;
 		while (temp->next != list::iterator)                //searching for the element before the deleted one
 		{
 			temp = temp->next;
@@ -66,6 +68,7 @@ void list::delete_current() {
 }
 
 int main() {
+	/*
 	list *p; {
 		list w;
 		w.prepend(4);
@@ -81,6 +84,6 @@ int main() {
 		cout << "deleted\n";
 		w.print();
 	}
-
+	*/
 	return 0;
 }
