@@ -2,6 +2,7 @@
 #define _LISTS_H_
 
 #include "defs.H"
+#include "Message.H"
 
 class Follower;
 class Leader;

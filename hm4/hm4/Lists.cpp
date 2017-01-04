@@ -1,5 +1,6 @@
 #include<iostream>
 #include "Lists.H"
+#include "Message.H"
 
 using std::cout;
 
@@ -21,6 +22,7 @@ void list::print() const {
 void list::delete_head() {
 	listelem* temp = h;
 	h = h->next;
+	//delete temp->data;
 	delete temp;                   //free memory
 }
 
@@ -78,7 +80,8 @@ int main() {
 		int size = w.get_size();
 		w.delete_current();
 		cout << "deleted\n";
-		w.print();
+		w.release();
+		//w.print();
 	}
 
 	return 0;
