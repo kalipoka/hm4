@@ -13,7 +13,7 @@ Follower::Follower(string name, string email, string password)
 	_Friends = new list_f;
 	_FRequests = new list_f;
 }
-
+//
 Follower::~Follower()
 {
 	delete _MessageBox;
