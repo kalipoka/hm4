@@ -32,10 +32,12 @@ void MessageBox::Print()
 	MessageBox::go_to_first();  // we go to the 1st
 	tmp = MessageBox::get_current();
 	int size = MessageBox::get_size();
+	int mone = 1;
 
 	while (tmp != NULL && size > 0 ) {
-		tmp->Display(2);                  // fix the number later; &&&&&&&&
+		tmp->Display(mone);                  // fix the number later; &&&&&&&&
 		MessageBox::next();
+		mone++;
 		size--;
 		if ( size > 0 )                         // patch  of liiegal memory fck
 			tmp = MessageBox::get_current();         
@@ -100,6 +102,14 @@ void MessageBox::Add(Message m)
 */
 
 
+/*
+MessageBox::~MessageBox()
+{
+	delete MessageBox::list_m;
+	delete _Friends;
+	delete _FRequests;
+}
+*/
 int main() {
 
 	Message msg("alibaba", "shodedim", "tellmestory");

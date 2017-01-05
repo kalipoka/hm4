@@ -30,6 +30,7 @@ public:
 	void Print();         
 	Result ReadMessage(int messageNum);
 	MessageBox(Node_m* h, Node_m* iterator, int size);
+	//~MessageBox();                                        // ight
 	//int num_of_unread;
 private:
 	// To do

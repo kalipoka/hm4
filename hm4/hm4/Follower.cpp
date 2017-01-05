@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Follower.H"
+#include "Message.H"
 
 using std::cout;
 //using namespace followers_list;
@@ -9,7 +10,7 @@ Follower::Follower(string name, string email, string password)
 	_name = name;
 	_email = email;
 	_password = password;
-	_MessageBox = new MessageBox(); // still in constraction;
+	_MessageBox = new MessageBox(NULL,NULL,0); // still in constraction;
 	_Friends = new list_f;
 	_FRequests = new list_f;
 }
@@ -137,7 +138,7 @@ int Follower::CountMessages() const
 }
 */
 
-
+/*
 int main()
 {
 	Follower F1("f1", "f1@walla","1234");
@@ -167,3 +168,4 @@ int main()
 	//cout << F2.GetName() << " " << F2.GetEmail << "\n";
 
 }
+*/
