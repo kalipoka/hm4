@@ -2,10 +2,11 @@
 #define _LISTS_H_
 
 #include "defs.H"
-#include "Message.H"
+//#include "Message.H"
 
 class Follower;
 class Leader;
+class Message;
 
 struct Node_m {
 	Message* data;

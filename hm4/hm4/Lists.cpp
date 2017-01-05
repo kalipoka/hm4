@@ -42,8 +42,9 @@ void list_m::next() {
 	list_m::iterator = list_m::iterator->next;
 }
 
-Message* list_m::get_current() {                          //$$$$$$$$$$$$$$$ int only for testing - change to Follower later
-	return list_m::iterator->data;
+Message* list_m::get_current() {  
+	// if ( list_m::iterator != NULL)
+		return list_m::iterator->data;  // illegal Memory Acces %%%%%%%%%%%%%%%%%%%%5
 }
 
 int list_m::get_size() {                          
@@ -200,7 +201,7 @@ void list_l::delete_current() {
 	}
 }
 
-
+/*
 int main() {
 
 		list_m w;
@@ -220,7 +221,7 @@ int main() {
 		
 		Message *tmp4 = w.get_current();
 		w.delete_current();
-		/*
+	
 		w.release();
 		//w.prepend(6);
 		//w.prepend(10);
@@ -235,9 +236,9 @@ int main() {
 		//w.release();
 		//w.print();
 		
-		*/
+		
 
 
 	return 0;
 }
-
+*/
