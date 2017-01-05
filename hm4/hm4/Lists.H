@@ -2,10 +2,11 @@
 #define _LISTS_H_
 
 #include "defs.H"
-#include "Message.H"
+//#include "Message.H"
 
 class Follower;
 class Leader;
+class Message;
 
 struct Node_m {
 	Message* data;
@@ -31,6 +32,8 @@ private:
 public:
 	list_m() {						 //not sure what it is - probably creator
 		h = NULL;
+		iterator = NULL;
+		size = 0;
 	}
 	~list_m() {
 		release();          //destory the list also not sure
