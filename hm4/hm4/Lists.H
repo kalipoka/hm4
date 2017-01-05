@@ -47,29 +47,31 @@ public:
 	void print() const; // only for debug 
 };
 
+//namespace followers_list {
 class list_f {
-private:
-	Node_f* h; //head of the list
-	Node_f* iterator; //Iterator
-	int size = 0; // not sure if the right place
-public:
-	list_f() {						 //not sure what it is - probably creator
-		h = NULL;
-	}
-	~list_f() {
-		release();          //destory the list also not sure
-	}
+	private:
+		Node_f* h; //head of the list
+		Node_f* iterator; //Iterator
+		int size = 0; // not sure if the right place
+	public:
+		list_f() {						 //not sure what it is - probably creator
+			h = NULL;
+		}
+		~list_f() {
+			release();          //destory the list also not sure
+		}
 
-	void go_to_first();
-	void prepend(Follower& f); // insert the 1st element to the list  $$$$$$$$$$$$$$$ int only for testing - change to Follower later
-	void delete_current();
-	void delete_head();
-	void next();
-	Follower* get_current();          //   $$$$$$$$$$$$$$$ int only for testing - change to Follower later
-	int get_size();
-	void release();  // not sure if we need it
-	void print() const; // only for debug 
-};
+		void go_to_first();
+		void prepend(Follower& f); // insert the 1st element to the list  $$$$$$$$$$$$$$$ int only for testing - change to Follower later
+		void delete_current();
+		void delete_head();
+		void next();
+		Follower* get_current();          //   $$$$$$$$$$$$$$$ int only for testing - change to Follower later
+		int get_size();
+		void release();  // not sure if we need it
+		void print() const; // only for debug 
+	};
+//}
 
 class list_l {
 private:

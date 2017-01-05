@@ -11,22 +11,23 @@ public:
 	Follower(string name, string email, string password);
 	~Follower();
 
-    string GetName();
-	string GetEmail();
-	bool isPassword(string password);
+    string GetName(); //Checked
+	string GetEmail(); //Checked
+	bool isPassword(string password); //Checked
 
+	//Friends Operations
 	void DisplayFriendRequests();
 	void DisplayFriendList();
-	void SendFriendRequest(string email);
 	void AddFriendRequest(string email);
-	void AcceptdFriendRequest(string email);
+	void AcceptedFriendRequest(string email);
 	void RemoveFriend(string email);
-
 	int CountFriendRequests() const;
+	
+	//Messages operations
 	void ShowMessageList() const;
-	void AddMessage();
-	void ReadMessage() const; //<messageNumber>
-	void SendMessage(string name, string email, string content);
+	void AddMessage(Message newMessage);
+	void ReadMessage(int MessageNum) const; //<messageNumber>
+	Message SendMessage(string name, string email, string content);
 	int CountMessages() const;
 
 	// To do

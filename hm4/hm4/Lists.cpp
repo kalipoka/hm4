@@ -26,6 +26,8 @@ void list_m::print() const {
 void list_m::delete_head() {
 	Node_m* temp = h;
 	h = h->next;
+	if (size == 1)
+		h = NULL;
 	delete temp;                   //free memory
 }
 
@@ -42,7 +44,8 @@ void list_m::next() {
 	list_m::iterator = list_m::iterator->next;
 }
 
-Message* list_m::get_current() {                          //$$$$$$$$$$$$$$$ int only for testing - change to Follower later
+Message* list_m::get_current() {
+	if (!list_m::iterator) return NULL;
 	return list_m::iterator->data;
 }
 
@@ -53,7 +56,11 @@ int list_m::get_size() {
 void list_m::delete_current() {
 
 	if (list_m::iterator == list_m::h)
+	{
 		list_m::delete_head();
+		list_m::size--;
+		list_m::iterator = NULL;
+	}
 	else
 	{
 		Node_m* temp = list_m::h;
@@ -90,6 +97,8 @@ void list_f::print() const {
 void list_f::delete_head() {
 	Node_f* temp = h;
 	h = h->next;
+	if (size == 1)
+		h = NULL;
 	delete temp;                   //free memory
 }
 
@@ -106,7 +115,9 @@ void list_f::next() {
 	list_f::iterator = list_f::iterator->next;
 }
 
-Follower* list_f::get_current() {                          //$$$$$$$$$$$$$$$ int only for testing - change to Follower later
+Follower* list_f::get_current() {
+	if (!list_f::iterator)
+		return NULL;
 	return list_f::iterator->data;
 }
 
@@ -116,8 +127,11 @@ int list_f::get_size() {
 
 void list_f::delete_current() {
 
-	if (list_f::iterator == list_f::h)
+	if (list_f::iterator == list_f::h) {
 		list_f::delete_head();
+		list_f::size--;
+		list_f::iterator = NULL;
+	}
 	else
 	{
 		Node_f* temp = list_f::h;
@@ -156,6 +170,8 @@ void list_l::print() const {
 void list_l::delete_head() {
 	Node_l* temp = h;
 	h = h->next;
+	if (size == 1)
+		h = NULL;
 	delete temp;                   //free memory
 }
 
@@ -172,7 +188,9 @@ void list_l::next() {
 	list_l::iterator = list_l::iterator->next;
 }
 
-Leader* list_l::get_current() {                          //$$$$$$$$$$$$$$$ int only for testing - change to Follower later
+Leader* list_l::get_current() {   
+	if (!list_l::iterator)
+		return NULL;
 	return list_l::iterator->data;
 }
 
@@ -182,8 +200,11 @@ int list_l::get_size() {
 
 void list_l::delete_current() {
 
-	if (list_l::iterator == list_l::h)
+	if (list_l::iterator == list_l::h){
 		list_l::delete_head();
+		list_l::size--;
+		list_l::iterator = NULL;
+	}
 	else
 	{
 		Node_l* temp = list_l::h;
@@ -199,7 +220,7 @@ void list_l::delete_current() {
 	}
 }
 
-
+/*
 int main() {
 
 		list_m w;
@@ -234,9 +255,10 @@ int main() {
 		//w.release();
 		//w.print();
 		
-		*/
+		
 
 
 	return 0;
 }
 
+*/
