@@ -3,6 +3,7 @@
 
 #include "defs.H"
 #include "Lists.H"
+#include "Message.H"
 
 using std::string;
 
@@ -25,7 +26,7 @@ public:
 	
 	//Messages operations
 	void ShowMessageList() const;
-	void AddMessage(Message newMessage);
+	void AddMessage(Message& newMessage);
 	void ReadMessage(int MessageNum) const; //<messageNumber>
 	Message SendMessage(string name, string email, string content);
 	int CountMessages() const;
