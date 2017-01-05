@@ -27,6 +27,12 @@
     <ClCompile Include="Leader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\AppData\Local\Temp\Mxt94\tmp\dragdrop\SocialNetwork.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\AppData\Local\Temp\Mxt94\tmp\dragdrop\main.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="defs.H">
@@ -42,6 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Leader.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\AppData\Local\Temp\Mxt94\tmp\dragdrop\SocialNetwork.H">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
