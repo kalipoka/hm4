@@ -146,8 +146,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\AppData\Local\Temp\Mxt94\tmp\dragdrop\main.C" />
-    <ClCompile Include="..\..\..\..\..\AppData\Local\Temp\Mxt94\tmp\dragdrop\SocialNetwork.cpp" />
     <ClCompile Include="Follower.cpp" />
     <ClCompile Include="Leader.cpp" />
     <ClCompile Include="Lists.cpp" />

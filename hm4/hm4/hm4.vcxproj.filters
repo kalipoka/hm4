@@ -27,12 +27,6 @@
     <ClCompile Include="Leader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\AppData\Local\Temp\Mxt94\tmp\dragdrop\SocialNetwork.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\..\AppData\Local\Temp\Mxt94\tmp\dragdrop\main.C">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="defs.H">

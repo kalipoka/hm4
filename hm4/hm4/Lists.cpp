@@ -42,7 +42,7 @@ void list_m::next() {
 	list_m::iterator = list_m::iterator->next;
 }
 
-void* list_m::get_current() {                          //$$$$$$$$$$$$$$$ int only for testing - change to Follower later
+Message* list_m::get_current() {                          //$$$$$$$$$$$$$$$ int only for testing - change to Follower later
 	return list_m::iterator->data;
 }
 
@@ -107,7 +107,7 @@ void list_f::next() {
 	list_f::iterator = list_f::iterator->next;
 }
 
-void* list_f::get_current() {                          //$$$$$$$$$$$$$$$ int only for testing - change to Follower later
+Follower* list_f::get_current() {                          //$$$$$$$$$$$$$$$ int only for testing - change to Follower later
 	return list_f::iterator->data;
 }
 
@@ -173,7 +173,7 @@ void list_l::next() {
 	list_l::iterator = list_l::iterator->next;
 }
 
-void* list_l::get_current() {                          //$$$$$$$$$$$$$$$ int only for testing - change to Follower later
+Leader* list_l::get_current() {                          //$$$$$$$$$$$$$$$ int only for testing - change to Follower later
 	return list_l::iterator->data;
 }
 
@@ -200,10 +200,10 @@ void list_l::delete_current() {
 	}
 }
 
-/*
+
 int main() {
-	list *p; {
-		list w;
+
+		list_m w;
 		Message *tmp1,*tmp2,*tmp3;
 		tmp1 = new Message("alibaba", "shodedim", "tellmestory"); // aloocita
 		tmp2 = new Message("Shakira", "Eminem", "Soy Mujera"); // aloocita
@@ -217,11 +217,11 @@ int main() {
 		w.prepend(*tmp3);
 		w.go_to_first();
 		w.next();
-
+		
 		Message *tmp4 = w.get_current();
 		w.delete_current();
+		/*
 		w.release();
-		
 		//w.prepend(6);
 		//w.prepend(10);
 		//w.prepend(15);
@@ -235,10 +235,9 @@ int main() {
 		//w.release();
 		//w.print();
 		
-	}
+		*/
 
 
 	return 0;
 }
 
-*/

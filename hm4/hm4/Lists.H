@@ -41,7 +41,7 @@ public:
 	void delete_current();
 	void delete_head();
 	void next();
-	void* get_current();          //   $$$$$$$$$$$$$$$ int only for testing - change to Follower later
+	Message* get_current();          //   $$$$$$$$$$$$$$$ int only for testing - change to Follower later
 	int get_size();
 	void release();  // not sure if we need it
 	void print() const; // only for debug 
@@ -65,7 +65,7 @@ public:
 	void delete_current();
 	void delete_head();
 	void next();
-	void* get_current();          //   $$$$$$$$$$$$$$$ int only for testing - change to Follower later
+	Follower* get_current();          //   $$$$$$$$$$$$$$$ int only for testing - change to Follower later
 	int get_size();
 	void release();  // not sure if we need it
 	void print() const; // only for debug 
@@ -89,7 +89,7 @@ public:
 	void delete_current();
 	void delete_head();
 	void next();
-	void* get_current();          //   $$$$$$$$$$$$$$$ int only for testing - change to Follower later
+	Leader* get_current();          //   $$$$$$$$$$$$$$$ int only for testing - change to Follower later
 	int get_size();
 	void release();  // not sure if we need it
 	void print() const; // only for debug 
