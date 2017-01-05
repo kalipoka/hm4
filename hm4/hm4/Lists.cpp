@@ -87,7 +87,6 @@ void list_f::print() const {
 		temp = temp->next;
 	}
 }
-
 void list_f::delete_head() {
 	Node_f* temp = h;
 	h = h->next;
