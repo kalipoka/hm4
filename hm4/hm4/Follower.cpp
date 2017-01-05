@@ -181,6 +181,7 @@ int main()
 	cout << "\nThe message:\n\n";
 	F1.ReadMessage(3);
 
+
 	F1.ShowMessageList();
 	cout << "\nThree messages:\n\n";
 	cout << F1.CountMessages();
@@ -188,5 +189,5 @@ int main()
 
 	
 	//cout << F2.GetName() << " " << F2.GetEmail << "\n";
-
+	return 0;
 }
