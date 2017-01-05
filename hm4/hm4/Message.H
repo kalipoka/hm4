@@ -20,10 +20,11 @@ private:
 };
 
 
-
+/*
 class MessageBox
 {
 public:
+	MessageBox(list messages);
 	void Add(Message newMessage);
 	int Size();
 	int UnreadSize();
@@ -31,5 +32,7 @@ public:
 	Result ReadMessage(int messageNum);
 private:
 	// To do
+	list messages;
 };
+*/
 #endif

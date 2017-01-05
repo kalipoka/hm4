@@ -22,3 +22,15 @@ bool Message::isRead()
 {
 	return read_;
 }
+
+
+int main() {
+
+	Message msg("alibaba", "shodedim", "tellmestory");
+	msg.Display(3);
+	msg.Read();
+	msg.Display(3);
+	bool is_read = msg.isRead();
+
+	return 0;
+}

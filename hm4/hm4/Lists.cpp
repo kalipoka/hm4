@@ -65,42 +65,28 @@ void list::delete_current() {
 		list::iterator = NULL;
 	}
 }
-
+/*
 int main() {
-	list *p; {
 		list w;
-		Message *tmp1,*tmp2,*tmp3;
-		tmp1 = new Message("alibaba", "shodedim", "tellmestory"); // aloocita
-		tmp2 = new Message("Shakira", "Eminem", "Soy Mujera"); // aloocita
-		tmp3 = new Message("Betty", "Bam", "ohevet bambam"); // aloocita
+		//Message tmp1;
 
+		Message msg1("Bibi", "Netantyao", "ElOr");
+		Message msg2("alibaba", "shodedim", "tellmestory");
+		Message msg3("Shakira", "Eminem", "Soy Mujera");
+		Message msg4("Betty", "Bam", "ohevet bambam");
 		
-		w.prepend(*tmp1);
+		w.prepend(msg1);
+		w.prepend(msg2);
+		
 		w.go_to_first();
-		w.prepend(*tmp2);
+		w.prepend(msg3);
 		w.print();
-		w.prepend(*tmp3);
+		w.prepend(msg4);
 		w.go_to_first();
 		w.next();
-
-		Message *tmp4 = w.get_current();
 		w.delete_current();
-		w.release();
-		/*
-		w.prepend(6);
-		w.prepend(10);
-		w.prepend(15);
-		w.print();
-		w.go_to_first();
-		w.next();
-		int temp = w.get_current();
-		int size = w.get_size();
-		w.delete_current();
-		cout << "deleted\n";
-		w.release();
-		//w.print();
-		*/
-	}
-
+		//w.release();
+	
 	return 0;
 }
+*/
