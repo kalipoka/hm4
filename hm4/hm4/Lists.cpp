@@ -65,7 +65,7 @@ void list_m::delete_current() {
 		temp->next = list_m::iterator->next;
 		delete (list_m::iterator);
 		list_m::size--;
-		list_m::iterator = NULL;
+		list_m::iterator = temp->next;
 	}
 }
 
@@ -129,7 +129,7 @@ void list_f::delete_current() {
 		temp->next = list_f::iterator->next;
 		delete (list_f::iterator);
 		list_f::size--;
-		list_f::iterator = NULL;
+		list_f::iterator = temp->next;
 	}
 }
 
@@ -195,7 +195,7 @@ void list_l::delete_current() {
 		temp->next = list_l::iterator->next;
 		delete (list_l::iterator);
 		list_l::size--;
-		list_l::iterator = NULL;
+		list_l::iterator = temp->next;
 	}
 }
 
