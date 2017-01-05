@@ -19,7 +19,7 @@ private:
 	string subject_;
     string content_;
     bool   read_;
-	int msgnum;
+	
 };
 
 class MessageBox:public list_m {    // inherit from list_m
@@ -29,7 +29,7 @@ public:
 	int UnreadSize();    
 	void Print();         
 	Result ReadMessage(int messageNum);
-	MessageBox(Node_m* h, Node_m* iterator, int size, int num_of_unread);
+	MessageBox(Node_m* h, Node_m* iterator, int size);
 	//int num_of_unread;
 private:
 	// To do
