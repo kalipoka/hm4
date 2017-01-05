@@ -23,7 +23,7 @@ bool Message::isRead()
 	return read_;
 }
 
-
+/*
 int main() {
 
 	Message msg("alibaba", "shodedim", "tellmestory");
@@ -34,3 +34,4 @@ int main() {
 
 	return 0;
 }
+*/

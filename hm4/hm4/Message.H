@@ -2,6 +2,7 @@
 #define _MESSAGE_H_
 
 #include "defs.H"
+#include "Lists.H"
 #include <string>
 
 using namespace std;
@@ -20,11 +21,10 @@ private:
 };
 
 
-/*
-class MessageBox
+
+class MessageBox:public list
 {
 public:
-	MessageBox(list messages);
 	void Add(Message newMessage);
 	int Size();
 	int UnreadSize();
@@ -32,7 +32,6 @@ public:
 	Result ReadMessage(int messageNum);
 private:
 	// To do
-	list messages;
 };
-*/
+
 #endif

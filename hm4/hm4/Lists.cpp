@@ -68,6 +68,7 @@ void list::delete_current() {
 /*
 int main() {
 		list w;
+
 		//Message tmp1;
 
 		Message msg1("Bibi", "Netantyao", "ElOr");

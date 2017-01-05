@@ -20,6 +20,8 @@ private:
 public:
 	list() {						 //not sure what it is - probably creator
 		h = NULL;
+		iterator = NULL;
+		size = 0;
 	}
 	~list() {
 		release();          //destory the list also not sure
