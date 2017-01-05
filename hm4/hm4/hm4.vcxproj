@@ -158,6 +158,9 @@
     <ClInclude Include="Lists.H" />
     <ClInclude Include="Message.H" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\..\AppData\Local\Temp\Mxt94\tmp\dragdrop\change_extensions" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
