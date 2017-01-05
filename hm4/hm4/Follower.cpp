@@ -2,14 +2,13 @@
 #include "Follower.H"
 
 using std::cout;
-//using namespace followers_list;
 
 Follower::Follower(string name, string email, string password)
 {
 	_name = name;
 	_email = email;
 	_password = password;
-	_MessageBox = new MessageBox(); // still in constraction;
+	_MessageBox = new MessageBox(NULL, NULL, 0);
 	_Friends = new list_f;
 	_FRequests = new list_f;
 }
@@ -110,15 +109,15 @@ int Follower::CountFriendRequests() const
 	return _FRequests->get_size();
 }
 
-/*
+
 void Follower::ShowMessageList() const
 {
 	_MessageBox->Print();
 }
 
-void Follower::AddMessage(Message newMessage)
+void Follower::AddMessage(Message& newMessage)
 {
-	_MessageBox->Add(newMessage);
+	_MessageBox->prepend(newMessage);
 }
 
 void Follower::ReadMessage(int MessageNum) const//<messageNumber>
@@ -133,13 +132,22 @@ Message Follower::SendMessage(string name, string email, string content)
  
 int Follower::CountMessages() const
 {
-	return _MessageBox->Size();
+	return _MessageBox->get_size();
 }
-*/
+
 
 
 int main()
 {
+	//Message* msg1 = new Message("alibaba", "shodedim", "tellmestory");
+	//Message* msg2 = new Message("eli", "yossi", "chupar me la");
+	//Message* msg3 = new Message("Sneh", "Shussman", "fuck me");
+
+	Message msg1("alibaba", "shodedim", "tellmestory");
+	Message msg2("eli", "yossi", "chupar me la");
+	Message msg3("Sneh", "Shussman", "fuck me");
+
+
 	Follower F1("f1", "f1@walla","1234");
 	//Follower F2("f2", "f2@walla", "4321");
 	//Follower F3("f3", "f2@walla", "qwerty");
@@ -164,6 +172,21 @@ int main()
 	F1.DisplayFriendList();
 	cout << "\n";
 	F1.DisplayFriendRequests();
+
+
+	F1.AddMessage(msg1);
+	F1.AddMessage(msg2);
+	F1.AddMessage(msg3);
+	F1.ShowMessageList();
+	cout << "\nThe message:\n\n";
+	F1.ReadMessage(3);
+
+	F1.ShowMessageList();
+	cout << "\nThree messages:\n\n";
+	cout << F1.CountMessages();
+
+
+	
 	//cout << F2.GetName() << " " << F2.GetEmail << "\n";
 
 }

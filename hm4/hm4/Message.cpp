@@ -23,7 +23,7 @@ bool Message::isRead()
 	return read_;
 }
 
-MessageBox::MessageBox(Node_m* h, Node_m* iterator, int size) :list_m() {}
+MessageBox::MessageBox(Node_m* h=NULL, Node_m* iterator=NULL, int size=0) :list_m() {}
 
 // prints all the message - Takzir
 void MessageBox::Print()
@@ -99,7 +99,7 @@ void MessageBox::Add(Message m)
 }
 */
 
-
+/*
 int main() {
 
 	Message msg("alibaba", "shodedim", "tellmestory");
@@ -133,6 +133,7 @@ int main() {
 	msg.Read();
 	msg.Display(3);
 	bool is_read = msg.isRead();
-	*/
+	
 	return 0;
 }
+*/
