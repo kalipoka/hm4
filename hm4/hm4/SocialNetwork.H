@@ -13,17 +13,17 @@ using namespace std;
 class SocialNetwork {
 public:
 	SocialNetwork(string name, string password);   //done
-	~SocialNetwork();  //done
+	~SocialNetwork();								 //done
 
-	void AdminLogin(string password);   //done
-	void Login(string email, string password);
-	void Logout(); // done
+	void AdminLogin(string password);				 //done
+	void Login(string email, string password);	 // in process
+	void Logout();								 // done
 
-	// Admin actions
-	void CreateLeader(string name, string email, string password);
+												 // Admin actions
+	void CreateLeader(string name, string email, string password);  //done
 	void DeleteUser(string email);
 
-	// Leader actions
+	// Leader actions	
 	void BroadcastMessage(string subject, string content);
 
 	// Follower actions (also leader actions)
@@ -44,7 +44,7 @@ public:
 	// General actions
 	void FindUser(string partialName);
 private:
-    // To do
+	// To do
 	//network info
 	string _network_name;
 	string _admin_password;
@@ -54,11 +54,18 @@ private:
 	list_l *_Leaders;
 
 	// network indications  - maybe need more...
+	Follower *_Active_Follower; // maybe can use inheritance?
+	Leader *_Active_Leader;
+
+	Leader *_find_leader(string email);
+	Follower *_find_follower(string email);
+
 	bool _any_body_in;       //if there is anyone connected
 	string _email_connected;
 	bool _is_admin;
 	bool _is_leader;
-	bool is_user_exists(string email);                 // done
+	// 0: not exists , 1:leader, 2: follower
+	int user_identifyer(string email);                 // d
 };
 
 #endif
