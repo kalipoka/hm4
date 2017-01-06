@@ -8,10 +8,13 @@ using std::cout;
 SocialNetwork::SocialNetwork(string name, string password)
 {
 	_network_name = name;			// do we need to initialize now?
-	_admin_password = password;     // do we need to initialize now?
+	_admin_password = "1234";     // do we need to initialize now?
 
 	_Followers = new list_f;
 	_Leaders = new list_l;
+
+	_Active_Follower = NULL; // maybe can use inheritance?
+	_Active_Leader = NULL;
 
 	_any_body_in = false;       //if there is anyone connected
 								//_email_connected = "" ;    //not sure if need to initialize
@@ -53,7 +56,10 @@ void SocialNetwork::Logout()
 {
 	if (_any_body_in == true)
 	{
-		_any_body_in = false;    // marking the logout
+		_any_body_in = false;
+		_is_admin = false;
+		_is_leader =false;
+		// marking the logout
 		cout << LOGOUT_SUCCESS;
 	}
 	else
@@ -129,6 +135,35 @@ void SocialNetwork::Login(string email, string password)
 
 }
 
+void SocialNetwork::BroadcastMessage(string subject, string content)
+{
+	if (!_is_leader || !_any_body_in) {
+		cout << BROADCAST_MESSAGE_FAIL;
+		return;
+	}
+
+	Message* newMessage; // we might want to append to list of all messages and release on exit ###################
+	newMessage = new Message(_Active_Leader->GetEmail(), subject, content);
+	_Active_Leader->BroadcastMessage(*newMessage);
+	cout << BROADCAST_MESSAGE_SUCCESS;
+}
+
+
+void SocialNetwork::ShowFriendRequests()
+{
+	if (!_any_body_in) {
+		cout << SHOW_FRIEND_REQUESTS_FAIL;
+		return;
+	}
+	if (_is_leader){
+		_Active_Leader->DisplayFriendRequests();
+	}
+	else {
+		_Active_Follower->DisplayFriendRequests();
+	}
+	cout << SHOW_FRIEND_REQUESTS_SUCCESS;
+
+}
 
 // General actions
 /*

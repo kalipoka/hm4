@@ -24,16 +24,16 @@ public:
 	void DeleteUser(string email);
 
 	// Leader actions	
-	void BroadcastMessage(string subject, string content);
+	void BroadcastMessage(string subject, string content); //ofir
 
 	// Follower actions (also leader actions)
 	void CreateFollower(string name, string email, string password);  // done
 
-	void ShowFriendRequests();
-	void ShowFriendList();
-	void SendFriendRequest(string friendEmail);
-	void AcceptFriendRequest(string friendEmail);
-	void RemoveFriend(string friendEmail);
+	void ShowFriendRequests(); //ofir
+	void ShowFriendList(); //ofir
+	void SendFriendRequest(string friendEmail); //ofir
+	void AcceptFriendRequest(string friendEmail); //ofir
+	void RemoveFriend(string friendEmail); //ofir
 
 	void ShowMessageList();
 	void ReadMessage(int messageNum);
@@ -61,7 +61,6 @@ private:
 	Follower *_find_follower(string email);
 
 	bool _any_body_in;       //if there is anyone connected
-	string _email_connected;
 	bool _is_admin;
 	bool _is_leader;
 	// 0: not exists , 1:leader, 2: follower
