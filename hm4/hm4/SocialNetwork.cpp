@@ -144,18 +144,6 @@ Follower* SocialNetwork::_FollowerByMail(string email)
 	return NULL;   // email does not exist
 }
 
-void SocialNetwork::Login(string email, string password)
-{
-	int user_type = SocialNetwork::user_identifyer(email);
-	if (user_identifyer == 0) // user does not exist
-		cout << LOGIN_FAIL;  // user does not exist
-
-	if (user_type == 1)       // it is a leader, look in leaders list
-	{
-
-	}
-
-}
 
 void SocialNetwork::BroadcastMessage(string subject, string content)
 {
@@ -198,7 +186,7 @@ void SocialNetwork::ShowFriendList()
 void SocialNetwork::Login(string email, string password)
 {
 	int user_type = SocialNetwork::user_identifyer(email);
-	if (user_identifyer == 0) // user does not exist
+	if (user_type == 0) // user does not exist
 		cout << LOGIN_FAIL;  // user does not exist
 
 	if (user_type == 1)       // it is a leader, look in  and compare in leaders list
