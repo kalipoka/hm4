@@ -28,7 +28,7 @@ class list_m {
 private:
 	Node_m* h; //head of the list
 	Node_m* iterator; //Iterator
-	int size = 0; // not sure if the right place
+	int size; // not sure if the right place
 public:
 	list_m() {						 //not sure what it is - probably creator
 		h = NULL;
@@ -55,10 +55,12 @@ class list_f {
 	private:
 		Node_f* h; //head of the list
 		Node_f* iterator; //Iterator
-		int size = 0; // not sure if the right place
+		int size; // not sure if the right place
 	public:
 		list_f() {						 //not sure what it is - probably creator
 			h = NULL;
+			iterator = NULL;
+			size = 0;
 		}
 		~list_f() {
 			release();          //destory the list also not sure
@@ -80,10 +82,12 @@ class list_l {
 private:
 	Node_l* h; //head of the list
 	Node_l* iterator; //Iterator
-	int size = 0; // not sure if the right place
+	int size; // not sure if the right place
 public:
 	list_l() {						 //not sure what it is - probably creator
 		h = NULL;
+		iterator = NULL;
+		size = 0;
 	}
 	~list_l() {
 		release();          //destory the list also not sure

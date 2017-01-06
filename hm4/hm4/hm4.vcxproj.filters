@@ -29,13 +29,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\AppData\Local\Temp\Mxt94\tmp\dragdrop\SocialNetwork.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="defs.H">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Lists.H">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Message.H">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Follower.H">
@@ -44,12 +41,18 @@
     <ClInclude Include="Leader.H">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\AppData\Local\Temp\Mxt94\tmp\dragdrop\SocialNetwork.H">
+    <ClInclude Include="Lists.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Message.H">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\AppData\Local\Temp\Mxt94\tmp\dragdrop\change_extensions">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\..\..\..\AppData\Local\Temp\Mxt94\tmp\dragdrop\makefile">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
