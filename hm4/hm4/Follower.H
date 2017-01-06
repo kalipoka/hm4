@@ -40,6 +40,9 @@ protected:
 	string _password;
 	MessageBox* _MessageBox;
 	list_f *_Friends, *_FRequests;
+
+private:
+	isFriendExist();
 };
 
 

@@ -178,6 +178,22 @@ void SocialNetwork::ShowFriendList()
 }
 
 
+void SocialNetwork::SendFriendRequest(string friendEmail)
+{
+	if (!_any_body_in) {
+		cout << SEND_FRIEND_REQUEST_FAIL;
+		return;
+	}
+	if (_is_leader)
+		if (_Active_Follower->GetEmail().compare(friendEmail))
+			cout << SEND_FRIEND_REQUEST_FAIL;
+
+
+
+
+}
+
+
 // General actions
 /*
 void SocialNetwork::FindUser(string partialName)
