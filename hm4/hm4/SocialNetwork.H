@@ -5,6 +5,7 @@
 #include "Lists.H"
 #include "Message.H"
 #include "Follower.H"
+#include "Leader.H"
 #include <string>
 using namespace std;
 
