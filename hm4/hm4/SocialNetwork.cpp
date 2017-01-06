@@ -393,6 +393,7 @@ cout << i + 1 << ") " << curLeader->GetName() << ": " << curLeader->GetEmail() <
 int main()
 {
 	SocialNetwork SocNetwork("MamatNet", "1234");
+	int num = 5;
 
 	return 0;
 }
