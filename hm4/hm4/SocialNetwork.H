@@ -36,9 +36,9 @@ public:
 
 	void ShowMessageList();                  // alex - done
 	void ReadMessage(int messageNum);		 // alex - done
-	void SendMessage(string email, string subject, string content); 
+	void SendMessage(string email, string subject, string content); // alex - done
 
-	void Follow(string leaderEmail);
+	void Follow(string leaderEmail);       // alex - done
 
 	// General actions
 	void FindUser(string partialName);

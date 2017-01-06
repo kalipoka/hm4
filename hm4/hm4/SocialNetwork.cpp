@@ -59,6 +59,8 @@ void SocialNetwork::Logout()
 		_any_body_in = false;
 		_is_admin = false;
 		_is_leader =false;
+		_Active_Follower = NULL;
+		_Active_Leader = NULL;
 		// marking the logout
 		cout << LOGOUT_SUCCESS;
 	}
@@ -267,13 +269,42 @@ void SocialNetwork::ReadMessage(int messageNum)
 
 void SocialNetwork::SendMessage(string email, string subject, string content)
 {
-	if ((_any_body_in)
+	if ((_any_body_in) && _Active_Follower->isFriend(email))
 	{
-		//if (is_frind);
+		Message* new_message;
+		new_message = new Message(email, subject, content);
+		_FollowerByMail(email)->AddMessage(*new_message);
+		cout << SEND_MESSAGE_SUCCESS;
 	}
-	
-	
+	else
+		cout << SEND_MESSAGE_FAIL;
 } 
+
+void SocialNetwork::Follow(string leaderEmail)
+{
+	int type = user_identifyer(leaderEmail);
+
+	if ((!_any_body_in) || (type!=1))
+	{
+		cout << FOLLOW_FAIL;
+		return;
+	}
+	Leader* the_leader = _find_leader(leaderEmail);
+	// if we are here means that some one is connected and the leader exists
+	if (the_leader->isFollower(_Active_Follower->GetEmail()) )
+	{
+		//we get here of the follower already follows this leader
+		cout << FOLLOW_FAIL;
+		return;
+	}
+	//here we add the mew follower to the leader's list
+	else
+	{ 
+	the_leader->AddFollower(*_Active_Follower);
+	cout << FOLLOW_SUCCESS;
+	}
+}
+
 void SocialNetwork::SendFriendRequest(string friendEmail)
 {
 	if (!_any_body_in) {
@@ -287,7 +318,7 @@ void SocialNetwork::SendFriendRequest(string friendEmail)
 
 	int user_id = user_identifyer(friendEmail);
 
-	if (user_id) //user doesn't exist
+	if (!user_id) //user doesn't exist                 //alex added ! 
 		cout << SEND_FRIEND_REQUEST_FAIL;
 	
 	if (_Active_Follower->isFriend(friendEmail) || _Active_Follower->isRequestExists(friendEmail)) { //friend already exists
@@ -359,5 +390,9 @@ cout << i + 1 << ") " << curLeader->GetName() << ": " << curLeader->GetEmail() <
 
 */
 
+int main()
+{
+	SocialNetwork SocNetwork("MamatNet", "1234");
 
-
+	return 0;
+}

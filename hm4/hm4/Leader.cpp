@@ -54,8 +54,22 @@ void Leader::BroadcastMessage(Message& TheMessage)
 	}
 }
 
+bool Leader::isFollower(string mail)
+{
+	_Followers->go_to_first();
+	Follower* index = _Followers->get_current();
 
+	while (index)
+	{
+		if (index->GetEmail().compare(mail))
+			return true;
+		_Followers->next();
+		index = _Followers->get_current();
+	}
+	return false;
+}
 
+/*
 int main()
 {
 	//Message* msg1 = new Message("alibaba", "shodedim", "tellmestory");
@@ -70,11 +84,11 @@ int main()
 	Leader F1("f1", "f1@walla", "1234");
 	Follower F2("f2", "f2@walla", "4321");
 	Follower F3("f3", "f2@walla", "qwerty");
-	/*
+	
 	cout << F1.GetName() << " " << F1.GetEmail() << "\n";
 	if (F1.isPassword("1234"))
 	cout << "alright my man!\n";
-	*/
+	
 
 	F1.AddFriendRequest(F2);
 	F1.AddFriendRequest(F3);
@@ -123,3 +137,4 @@ int main()
 	//cout << F2.GetName() << " " << F2.GetEmail << "\n";
 	return 0;
 }
+*/

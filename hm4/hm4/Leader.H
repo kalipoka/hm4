@@ -14,9 +14,10 @@ public:
 	int CountFollowers();
 	void RemoveFollower(Follower& Friend);
 	void BroadcastMessage(Message& TheMessage);
+	bool isFollower(string mail);
 
 protected:
-	list_f *_Followers;
+	list_f *_Followers;           
 };
 
 

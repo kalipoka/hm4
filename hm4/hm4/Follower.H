@@ -42,7 +42,6 @@ protected:
 	MessageBox* _MessageBox;
 	list_f *_Friends, *_FRequests;
 
-	
 };
 
 
