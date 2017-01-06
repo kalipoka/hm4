@@ -11,6 +11,7 @@ class Follower {
 public:
 	Follower(string name, string email, string password);
 	~Follower();
+	bool operator==(Follower& f1) const;
 
     string GetName(); //Checked
 	string GetEmail(); //Checked
@@ -19,16 +20,16 @@ public:
 	//Friends Operations
 	void DisplayFriendRequests();
 	void DisplayFriendList();
-	void AddFriendRequest(string email);
-	void AcceptedFriendRequest(string email);
-	void RemoveFriend(string email);
+	void AddFriendRequest(Follower& Friend);
+	void AcceptedFriendRequest(Follower& Friend);
+	void RemoveFriend(Follower& Friend);
 	int CountFriendRequests() const;
 	
 	//Messages operations
 	void ShowMessageList() const;
 	void AddMessage(Message& newMessage);
 	void ReadMessage(int MessageNum) const; //<messageNumber>
-	Message SendMessage(string name, string email, string content);
+	void SendMessage(Message& TheMessage, Follower& Friend);
 	int CountMessages() const;
 
 	// To do
