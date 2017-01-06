@@ -62,39 +62,23 @@ void SocialNetwork::Logout()
 
 void SocialNetwork::CreateFollower(string name, string email, string password)
 {
-	if (SocialNetwork::user_identifyer(email))   //user email exists
+	if (SocialNetwork::is_user_exists(email))   //user email exists
 	{
 		cout << CREATE_FOLLOWER_FAIL;
 	}
 	else  // user not exsits
 	{
 		Follower* new_follower;
-		new_follower = new Follower(name, email, password);
+		new_follower = new Follower("a", email, "a");
 		_Followers->prepend(*new_follower);
 		cout << CREATE_FOLLOWER_SUCCESS;
 	}
 }
 
-void SocialNetwork::CreateLeader(string name, string email, string password)
-{
-	if (SocialNetwork::user_identifyer(email) || (_is_admin == false) )   //user email exists or not admin
-	{
-		cout << CREATE_LEADER_FAIL;
-	}
-	else  // user not exsits
-	{
-		Leader* new_leader;
-		new_leader = new Leader(name, email, password);
-		_Leaders->prepend(*new_leader);
-		cout << CREATE_LEADER_SUCCESS;
-	}
-}
+
 
 //check if this email already exists in leaders or followers list
-// indicates if the leader is follower or leader
-// 1 for leader 2 for follower
-
-int SocialNetwork::user_identifyer(string email)
+bool SocialNetwork::is_user_exists(string email)
 {
 	_Followers->go_to_first();
 	_Leaders->go_to_first();
@@ -103,31 +87,16 @@ int SocialNetwork::user_identifyer(string email)
 	Leader* indexL = _Leaders->get_current();
 	while (indexF || indexL)
 	{
-		if (indexF->GetEmail() == email)
-			return 2;      // exists and it is a follower
-		if (indexL->GetEmail() == email)
-			return 1;      // exists and it is a leader		
-
+		if ((indexF->GetEmail() == email) || (indexL->GetEmail() == email))
+			return true;				//email exists already;
 		_Followers->next();
 		_Leaders->next();
 		 indexF = _Followers->get_current();
 		 indexL = _Leaders->get_current();
 	}
-	return 0;   // email does not exist
+	return false;   // email does not exist
 }
 
-void SocialNetwork::Login(string email, string password)
-{
-	int user_type = SocialNetwork::user_identifyer(email);
-	if (user_identifyer == 0) // user does not exist
-		cout << LOGIN_FAIL;  // user does not exist
-
-	if (user_type == 1)       // it is a leader, look in leaders list
-	{
-
-	}
-
-}
 
 
 // General actions
