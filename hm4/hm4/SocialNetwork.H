@@ -16,7 +16,7 @@ public:
 	~SocialNetwork();								 //done
 
 	void AdminLogin(string password);				 //done
-	void Login(string email, string password);	 // in process
+	void Login(string email, string password);	 // done
 	void Logout();								 // done
 
 												 // Admin actions
@@ -24,12 +24,12 @@ public:
 	void DeleteUser(string email);
 
 	// Leader actions	
-	void BroadcastMessage(string subject, string content);
+	void BroadcastMessage(string subject, string content); // ofir
 
 	// Follower actions (also leader actions)
 	void CreateFollower(string name, string email, string password);  // done
 
-	void ShowFriendRequests();
+	void ShowFriendRequests();                          // ofir
 	void ShowFriendList();
 	void SendFriendRequest(string friendEmail);
 	void AcceptFriendRequest(string friendEmail);
@@ -43,10 +43,12 @@ public:
 
 	// General actions
 	void FindUser(string partialName);
+
 private:
 	// To do
 	//network info
-	string _network_name;
+//	string _network_name;
+	string name_;
 	string _admin_password;
 
 	// users lists
@@ -54,11 +56,11 @@ private:
 	list_l *_Leaders;
 
 	// network indications  - maybe need more...
-	Follower *_Active_Follower; // maybe can use inheritance?
-	Leader *_Active_Leader;
+	Follower *activeFollower; // maybe can use inheritance?
+	//Leader *_Active_Leader;
 
-	Leader *_find_leader(string email);
-	Follower *_find_follower(string email);
+	Leader* find_leader(string email);
+	Follower* find_follower(string email);
 
 	bool _any_body_in;       //if there is anyone connected
 	string _email_connected;

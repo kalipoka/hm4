@@ -7,7 +7,7 @@ using std::cout;
 // creator 
 SocialNetwork::SocialNetwork(string name, string password)
 {
-	_network_name = name;			// do we need to initialize now?
+	name_ = name;			// do we need to initialize now?
 	_admin_password = password;     // do we need to initialize now?
 
 	_Followers = new list_f;
@@ -21,7 +21,7 @@ SocialNetwork::SocialNetwork(string name, string password)
 
 SocialNetwork::~SocialNetwork()
 {
-	delete &_network_name;    //  added the & so it become a pointer - check later;
+	delete &name_;    //  added the & so it become a pointer - check later;
 	delete &_admin_password;
 	delete _Followers;
 	delete _Leaders;
@@ -39,7 +39,7 @@ void SocialNetwork::AdminLogin(string password)
 		//admin login succesfull
 		_any_body_in = true;
 		_is_admin = true;
-		cout << ADMIN_LOGIN_SUCCESS << _network_name << "\n";
+		cout << ADMIN_LOGIN_SUCCESS << name_ << "\n";
 	}
 	else
 	{
@@ -122,12 +122,61 @@ void SocialNetwork::Login(string email, string password)
 	if (user_identifyer == 0) // user does not exist
 		cout << LOGIN_FAIL;  // user does not exist
 
-	if (user_type == 1)       // it is a leader, look in leaders list
+	if (user_type == 1)       // it is a leader, look in  and compare in leaders list
 	{
-
+		Leader* tmp = SocialNetwork::find_leader(email);
+		if ( tmp->isPassword(password))   // password is OK
+		{ 
+			_any_body_in = true;
+			_is_leader = true;
+			activeFollower = tmp;
+			cout << LOGIN_SUCCESS;
+		}
 	}
-
+	if (user_type == 2)
+	{
+		Follower* tmp = SocialNetwork::find_follower(email);
+		if (tmp->isPassword(password))   // password is OK
+		{
+			_any_body_in = true;
+			activeFollower = tmp;
+			cout << LOGIN_SUCCESS;
+		}
+	}
 }
+
+Leader* SocialNetwork::find_leader(string email)
+{
+	_Leaders->go_to_first();
+	Leader* indexL = _Leaders->get_current();
+	while (indexL)
+	{
+		if (indexL->GetEmail() == email)
+			return indexL;
+
+		_Leaders->next();
+		indexL = _Leaders->get_current();
+	}
+	return NULL;
+}
+
+Follower* SocialNetwork::find_follower(string email)
+{
+	_Followers->go_to_first();
+	Follower* indexF = _Followers->get_current();
+	while (indexF)
+	{
+		if (indexF->GetEmail() == email)
+			return indexF;
+
+		_Followers->next();
+		indexF = _Leaders->get_current();
+	}
+	return NULL;
+}
+
+
+
 
 
 // General actions

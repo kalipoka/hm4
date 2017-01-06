@@ -108,7 +108,7 @@ void Follower::RemoveFriend(Follower& Friend)
 	}
 }
 
-int Follower::CountFriendRequests() const
+int Follower::NumFriendRequests() const
 {
 	return _FRequests->get_size();
 }
@@ -133,9 +133,9 @@ void Follower::SendMessage(Message& TheMessage, Follower& Friend)
 	Friend.AddMessage(TheMessage);
 }
  
-int Follower::CountMessages() const
+int Follower::NumUnreadMessages() const
 {
-	return _MessageBox->get_size();
+	return _MessageBox->UnreadSize();
 }
 
 
