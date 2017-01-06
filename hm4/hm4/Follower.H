@@ -23,14 +23,14 @@ public:
 	void AddFriendRequest(Follower& Friend);
 	void AcceptedFriendRequest(Follower& Friend);
 	void RemoveFriend(Follower& Friend);
-	int CountFriendRequests() const;
+	int NumFriendRequests() const;
 	
 	//Messages operations
 	void ShowMessageList() const;
 	void AddMessage(Message& newMessage);
 	void ReadMessage(int MessageNum) const; //<messageNumber>
 	void SendMessage(Message& TheMessage, Follower& Friend);
-	int CountMessages() const;
+	int NumUnreadMessages() const;
 
 	// To do
 protected:
