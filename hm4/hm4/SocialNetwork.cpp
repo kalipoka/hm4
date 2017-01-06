@@ -161,9 +161,22 @@ void SocialNetwork::ShowFriendRequests()
 	else {
 		_Active_Follower->DisplayFriendRequests();
 	}
-	cout << SHOW_FRIEND_REQUESTS_SUCCESS;
-
 }
+
+void SocialNetwork::ShowFriendList()
+{
+	if (!_any_body_in) {
+		cout << SHOW_FRIEND_LIST_FAIL;
+		return;
+	}
+	if (_is_leader) {
+		_Active_Leader->DisplayFriendList();
+	}
+	else {
+		_Active_Follower->DisplayFriendList();
+	}
+}
+
 
 // General actions
 /*

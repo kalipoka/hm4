@@ -30,11 +30,11 @@
 #define CREATE_FOLLOWER_FAIL "User already exists"
 
 // ShowFriendRequests (On success put this line in a loop. the variable "i" starts from 0)
-#define SHOW_FRIEND_REQUESTS_SUCCESS i + 1 << ") " << curRequest->name_ << ": " << curRequest->email_
+#define SHOW_FRIEND_REQUESTS_SUCCESS i + 1 << ") " << index->_name << ": " << index->_email
 #define SHOW_FRIEND_REQUESTS_FAIL "Not logged in"
 
 // ShowFriendList (On success put this line in a loop. the variable "i" starts from 0)
-#define SHOW_FRIEND_LIST_SUCCESS i + 1 << ") " << curFriend->name_ << ": " << curFriend->email_
+#define SHOW_FRIEND_LIST_SUCCESS i + 1 << ") " << index->_name << ": " << index->_email
 #define SHOW_FRIEND_LIST_FAIL "Not logged in"
 
 // SendFriendRequest

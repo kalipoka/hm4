@@ -38,11 +38,11 @@ void Follower::DisplayFriendRequests()
 {
 	_FRequests->go_to_first();
 	Follower* index = _FRequests->get_current();
-	int size = 0;
+	int i = 0;
 	while (index)
 	{
-		size++;
-		cout << size << ") " << index->GetName() << ": "<< index->GetEmail() << "\n";
+		cout << SHOW_FRIEND_REQUESTS_SUCCESS;
+		i++;
 		_FRequests->next();
 		index = _FRequests->get_current();
 	}
@@ -52,11 +52,11 @@ void Follower::DisplayFriendList()
 {
 	_Friends->go_to_first();
 	Follower* index = _Friends->get_current();
-	int size = 0;
+	int i = 0;
 	while (index)
 	{
-		size++;
-		cout << size << ") " << index->GetName() << ": " << index->GetEmail() << "\n";
+		cout << SHOW_FRIEND_LIST_SUCCESS;
+		i++;
 		_Friends->next();
 		index = _Friends->get_current();
 	}
