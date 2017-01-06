@@ -11,22 +11,22 @@ using namespace std;
 
 class SocialNetwork {
 public:
-	SocialNetwork(string name, string password);   //alex - done
-	~SocialNetwork();								 //alex - done
+	SocialNetwork(string name, string password);   //alex - done and CHECKED
+	~SocialNetwork();								 //alex - done and CHECKED (doesnt crush on finish)
 
-	void AdminLogin(string password);				 //alex - done
-	void Login(string email, string password);	 // alex - done
-	void Logout();								 // alex - done
+	void AdminLogin(string password);				 //alex - done and CHECKED
+	void Login(string email, string password);	 // alex - done and CHECKED
+	void Logout();								 // alex - done and CHECKED
 
 												 // Admin actions
-	void CreateLeader(string name, string email, string password);  //alex - done
+	void CreateLeader(string name, string email, string password);  //alex - done and CHECKED
 	void DeleteUser(string email);
 
 	// Leader actions	
 	void BroadcastMessage(string subject, string content); //ofir
 
 	// Follower actions (also leader actions)
-	void CreateFollower(string name, string email, string password);  // alex - done
+	void CreateFollower(string name, string email, string password);  //alex - done and CHECKED 
 
 	void ShowFriendRequests(); //ofir
 	void ShowFriendList(); //ofir
@@ -36,9 +36,9 @@ public:
 
 	void ShowMessageList();                  // alex - done
 	void ReadMessage(int messageNum);		 // alex - done
-	void SendMessage(string email, string subject, string content); // alex - done
+	void SendMessage(string email, string subject, string content); // alex - done 
 
-	void Follow(string leaderEmail);       // alex - done
+	void Follow(string leaderEmail);       // alex - done and CHECKED 
 
 	// General actions
 	void FindUser(string partialName);
@@ -63,7 +63,7 @@ private:
 	bool _is_admin;
 	bool _is_leader;
 	// 0: not exists , 1:leader, 2: follower
-	int user_identifyer(string email);  // d
+	int user_identifyer(string email);  //                             alex - done and CHECKED
 	Follower* _FollowerByMail(string email);
 };
 
