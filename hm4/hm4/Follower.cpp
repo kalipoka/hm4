@@ -15,6 +15,9 @@ Follower::Follower(string name, string email, string password)
 
 Follower::~Follower()
 {
+	_MessageBox->release();
+	_Friends->release();
+	_Friends->release();
 	delete _MessageBox;
 	delete _Friends;
 	delete _FRequests;
@@ -35,9 +38,11 @@ void Follower::DisplayFriendRequests()
 {
 	_FRequests->go_to_first();
 	Follower* index = _FRequests->get_current();
+	int size = 0;
 	while (index)
 	{
-		cout << index->GetEmail() << "\n";
+		size++;
+		cout << size << ") " << index->GetName() << ": "<< index->GetEmail() << "\n";
 		_FRequests->next();
 		index = _FRequests->get_current();
 	}
@@ -47,22 +52,22 @@ void Follower::DisplayFriendList()
 {
 	_Friends->go_to_first();
 	Follower* index = _Friends->get_current();
+	int size = 0;
 	while (index)
 	{
-		cout << index->GetEmail() << "\n";
+		size++;
+		cout << size << ") " << index->GetName() << ": " << index->GetEmail() << "\n";
 		_Friends->next();
 		index = _Friends->get_current();
 	}
 }
 
-void Follower::AddFriendRequest(string email)
+void Follower::AddFriendRequest(Follower& Friend)
 {
-	Follower* new_follower;
-	new_follower = new Follower("a", email, "a");
-	_FRequests->prepend(*new_follower);
+	_FRequests->prepend(Friend);
 }
 
-void Follower::AcceptedFriendRequest(string email)
+void Follower::AcceptedFriendRequest(Follower& Friend)
 {
 	//find the friend requests in list	
 	_FRequests->go_to_first();
@@ -70,7 +75,7 @@ void Follower::AcceptedFriendRequest(string email)
 
 	while (index)
 	{
-		if (index->GetEmail() == email)
+		if (index->GetEmail() == Friend.GetEmail() && index->GetName() == Friend.GetName())
 		{
 			_Friends->prepend(*index);
 			_FRequests->delete_current();
@@ -83,7 +88,7 @@ void Follower::AcceptedFriendRequest(string email)
 	}
 }
 
-void Follower::RemoveFriend(string email)
+void Follower::RemoveFriend(Follower& Friend)
 {
 	//find the friend requests in list	
 	_Friends->go_to_first();
@@ -91,9 +96,8 @@ void Follower::RemoveFriend(string email)
 
 	while (index)
 	{
-		if (index->GetEmail() == email)
+		if (index->GetEmail() == Friend.GetEmail() && index->GetName() == Friend.GetName())
 		{
-			delete index;
 			_Friends->delete_current();
 		}
 		else
@@ -108,7 +112,6 @@ int Follower::CountFriendRequests() const
 {
 	return _FRequests->get_size();
 }
-
 
 void Follower::ShowMessageList() const
 {
@@ -125,9 +128,9 @@ void Follower::ReadMessage(int MessageNum) const//<messageNumber>
 	_MessageBox->ReadMessage(MessageNum);
 }
 
-Message Follower::SendMessage(string name, string email, string content)
+void Follower::SendMessage(Message& TheMessage, Follower& Friend)
 {
-	return *new Message(name, email, content);
+	Friend.AddMessage(TheMessage);
 }
  
 int Follower::CountMessages() const
@@ -149,43 +152,48 @@ int main()
 
 
 	Follower F1("f1", "f1@walla","1234");
-	//Follower F2("f2", "f2@walla", "4321");
-	//Follower F3("f3", "f2@walla", "qwerty");
+	Follower F2("f2", "f2@walla", "4321");
+	Follower F3("f3", "f2@walla", "qwerty");
+	/*
 	cout << F1.GetName() << " " << F1.GetEmail() << "\n";
 	if (F1.isPassword("1234"))
 		cout << "alright my man!\n";
+	*/
 
-	F1.AddFriendRequest("dude1@");
-	F1.AddFriendRequest("dude2@");
-	F1.AddFriendRequest("dude3@");
-	//F1.DisplayFriendRequests();
+	F1.AddFriendRequest(F2);
+	F1.AddFriendRequest(F3);
+	
+	F1.DisplayFriendRequests();
 	cout << F1.CountFriendRequests() << "\n";
-	F1.AcceptedFriendRequest("dude1@");
-	F1.AcceptedFriendRequest("dude2@");
-	F1.AcceptedFriendRequest("dude3@");
+
+	F1.AcceptedFriendRequest(F2);
+	F1.AcceptedFriendRequest(F3);
+	//F1.AcceptedFriendRequest("dude3@");
 	//cout << F1.CountFriendRequests() << "\n";
+
 	cout << "Before remove\n";
 	F1.DisplayFriendList();
 	cout << "\n";
-	F1.RemoveFriend("dude1@");
+	F1.RemoveFriend(F2);
 	cout << "After removal\n";
 	F1.DisplayFriendList();
-	cout << "\n";
+	cout << "\nNo friend requests\n";
 	F1.DisplayFriendRequests();
 
-
+	
 	F1.AddMessage(msg1);
 	F1.AddMessage(msg2);
 	F1.AddMessage(msg3);
 	F1.ShowMessageList();
+	
 	cout << "\nThe message:\n\n";
 	F1.ReadMessage(3);
 
 
-	F1.ShowMessageList();
-	cout << "\nThree messages:\n\n";
-	cout << F1.CountMessages();
-
+	//F1.ShowMessageList();
+	cout << "\nThree messages:\n";
+	cout << F1.CountMessages() <<"\n";
+	
 
 	
 	//cout << F2.GetName() << " " << F2.GetEmail << "\n";
