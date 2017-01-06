@@ -191,6 +191,7 @@ void SocialNetwork::Login(string email, string password)
 			_any_body_in = true;
 			_is_leader = true;
 			_Active_Follower = tmp;
+			_Active_Leader = tmp;
 			cout << LOGIN_SUCCESS;
 		}
 	}
@@ -201,6 +202,7 @@ void SocialNetwork::Login(string email, string password)
 		{
 			_any_body_in = true;
 			_Active_Follower = tmp;
+			_Active_Leader = NULL;
 			cout << LOGIN_SUCCESS;
 		}
 	}
@@ -259,8 +261,13 @@ void SocialNetwork::ReadMessage(int messageNum)
 
 void SocialNetwork::SendMessage(string email, string subject, string content)
 {
-
-}
+	if ((_any_body_in)
+	{
+		//if (is_frind);
+	}
+	
+	
+} 
 void SocialNetwork::SendFriendRequest(string friendEmail)
 {
 	if (!_any_body_in) {
