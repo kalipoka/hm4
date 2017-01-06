@@ -31,7 +31,8 @@ public:
 	void ReadMessage(int MessageNum) const; //<messageNumber>
 	void SendMessage(Message& TheMessage, Follower& Friend);
 	int NumUnreadMessages() const;
-
+	bool isFriend(string mail);
+	bool isRequestExists(string mail);
 	// To do
 protected:
 
@@ -41,8 +42,7 @@ protected:
 	MessageBox* _MessageBox;
 	list_f *_Friends, *_FRequests;
 
-private:
-	bool isFriend();
+	
 };
 
 
