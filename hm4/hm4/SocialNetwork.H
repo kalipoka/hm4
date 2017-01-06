@@ -12,22 +12,22 @@ using namespace std;
 
 class SocialNetwork {
 public:
-	SocialNetwork(string name, string password);   //done
-	~SocialNetwork();								 //done
+	SocialNetwork(string name, string password);   //alex - done
+	~SocialNetwork();								 //alex - done
 
-	void AdminLogin(string password);				 //done
-	void Login(string email, string password);	 // in process
-	void Logout();								 // done
+	void AdminLogin(string password);				 //alex - done
+	void Login(string email, string password);	 // alex - done
+	void Logout();								 // alex - done
 
 												 // Admin actions
-	void CreateLeader(string name, string email, string password);  //done
+	void CreateLeader(string name, string email, string password);  //alex - done
 	void DeleteUser(string email);
 
 	// Leader actions	
 	void BroadcastMessage(string subject, string content); //ofir
 
 	// Follower actions (also leader actions)
-	void CreateFollower(string name, string email, string password);  // done
+	void CreateFollower(string name, string email, string password);  // alex - done
 
 	void ShowFriendRequests(); //ofir
 	void ShowFriendList(); //ofir
@@ -35,7 +35,7 @@ public:
 	void AcceptFriendRequest(string friendEmail); //ofir
 	void RemoveFriend(string friendEmail); //ofir
 
-	void ShowMessageList();
+	void ShowMessageList();                  // alex - done
 	void ReadMessage(int messageNum);
 	void SendMessage(string email, string subject, string content);
 
@@ -55,7 +55,7 @@ private:
 
 	// network indications  - maybe need more...
 	Follower *_Active_Follower; // maybe can use inheritance?
-	Leader *_Active_Leader;
+	//Leader *_Active_Leader;
 
 	Leader*_find_leader(string email);
 	Follower *_find_follower(string email);
