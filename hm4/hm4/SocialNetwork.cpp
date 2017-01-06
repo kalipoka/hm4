@@ -242,11 +242,15 @@ void SocialNetwork::SendFriendRequest(string friendEmail)
 		cout << SEND_FRIEND_REQUEST_FAIL;
 		return;
 	}
-	if (_is_leader)
-		if (_Active_Follower->GetEmail().compare(friendEmail))
-			cout << SEND_FRIEND_REQUEST_FAIL;
+	if (_Active_Follower->GetEmail().compare(friendEmail)){ //friend himself
+		cout << SEND_FRIEND_REQUEST_FAIL;
+		return;
+	}
 
+	int user_id = user_identifyer(friendEmail);
 
+	if (user_id) //user doesn't exist
+		cout << SEND_FRIEND_REQUEST_FAIL;
 
 
 }

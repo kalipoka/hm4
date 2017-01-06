@@ -42,7 +42,7 @@ protected:
 	list_f *_Friends, *_FRequests;
 
 private:
-	isFriendExist();
+	bool isFriend();
 };
 
 
