@@ -158,7 +158,7 @@ int main()
 	cout << F1.GetName() << " " << F1.GetEmail() << "\n";
 	if (F1.isPassword("1234"))
 		cout << "alright my man!\n";
-	*/
+	
 
 	F1.AddFriendRequest(F2);
 	F1.AddFriendRequest(F3);

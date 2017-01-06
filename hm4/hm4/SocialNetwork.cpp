@@ -87,7 +87,7 @@ bool SocialNetwork::is_user_exists(string email)
 	Leader* indexL = _Leaders->get_current();
 	while (indexF || indexL)
 	{
-		if ((indexF->GetEmail() == email) || (indexL->GetEmal() == email))
+		if ((indexF->GetEmail() == email) || (indexL->GetEmail() == email))
 			return true;				//email exists already;
 		_Followers->next();
 		_Leaders->next();

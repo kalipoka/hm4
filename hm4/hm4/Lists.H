@@ -30,14 +30,8 @@ private:
 	Node_m* iterator; //Iterator
 	int size; // not sure if the right place
 public:
-	list_m() {						 //not sure what it is - probably creator
-		h = NULL;
-		iterator = NULL;
-		size = 0;
-	}
-	~list_m() {
-		release();          //destory the list also not sure
-	}
+	list_m();
+	~list_m();
 	
 	void go_to_first(); 
 	void prepend(Message& m); // insert the 1st element to the list  $$$$$$$$$$$$$$$ int only for testing - change to Follower later
@@ -57,14 +51,8 @@ class list_f {
 		Node_f* iterator; //Iterator
 		int size; // not sure if the right place
 	public:
-		list_f() {						 //not sure what it is - probably creator
-			h = NULL;
-			iterator = NULL;
-			size = 0;
-		}
-		~list_f() {
-			release();          //destory the list also not sure
-		}
+		list_f();
+		~list_f();
 
 		void go_to_first();
 		void prepend(Follower& f); // insert the 1st element to the list  $$$$$$$$$$$$$$$ int only for testing - change to Follower later
@@ -82,16 +70,10 @@ class list_l {
 private:
 	Node_l* h; //head of the list
 	Node_l* iterator; //Iterator
-	int size; // not sure if the right place
+	int size;
 public:
-	list_l() {						 //not sure what it is - probably creator
-		h = NULL;
-		iterator = NULL;
-		size = 0;
-	}
-	~list_l() {
-		release();          //destory the list also not sure
-	}
+	list_l();
+	~list_l();
 
 	void go_to_first();
 	void prepend(Leader& l); // insert the 1st element to the list  $$$$$$$$$$$$$$$ int only for testing - change to Follower later

@@ -6,6 +6,16 @@ using std::cout;
 
 /*LIST FOR MESSAGES*/
 
+list_m::list_m() {
+	h = NULL;
+	iterator = NULL;
+	size = 0;
+}
+
+list_m::~list_m() {
+	release();
+}
+
 void list_m::prepend(Message& m) {
 	Node_m* temp = new Node_m; // allocation
 	temp->next = h;
@@ -77,6 +87,16 @@ void list_m::delete_current() {
 }
 
 /*LIST FOR FOLLOWERS*/
+list_f::list_f() {
+	h = NULL;
+	iterator = NULL;
+	size = 0;
+}
+
+list_f::~list_f() {
+	release();
+}
+
 
 void list_f::prepend(Follower& f) {
 	Node_f* temp = new Node_f; // allocation
@@ -149,6 +169,16 @@ void list_f::delete_current() {
 
 
 /*LIST FOR LEADERS*/
+
+list_l::list_l() {
+	h = NULL;
+	iterator = NULL;
+	size = 0;
+}
+
+list_l::~list_l() {
+	release();
+}
 
 void list_l::prepend(Leader& f) {
 	Node_l* temp = new Node_l; // allocation
