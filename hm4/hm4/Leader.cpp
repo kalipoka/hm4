@@ -80,7 +80,7 @@ int main()
 	F1.AddFriendRequest(F3);
 
 	F1.DisplayFriendRequests();
-	cout << F1.CountFriendRequests() << "\n";
+	cout << F1.NumFriendRequests() << "\n";
 
 	F1.AcceptedFriendRequest(F2);
 	F1.AcceptedFriendRequest(F3);
@@ -105,7 +105,7 @@ int main()
 	F1.ReadMessage(3);
 	//F1.ShowMessageList();
 	cout << "\nThree messages:\n";
-	cout << F1.CountMessages() << "\n";
+	cout << F1.NumUnreadMessages() << "\n";
 	
 
 	F1.AddFollower(F2);
