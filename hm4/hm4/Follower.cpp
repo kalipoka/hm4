@@ -23,15 +23,6 @@ Follower::~Follower()
 	delete _FRequests;
 }
 
-bool Follower::operator==(Follower& f1) const
-{
-	Follower temp = *this;
-	if (temp.GetEmail() == f1.GetEmail() && temp.GetName() == f1.GetName())
-		return true;
-	else
-		return false;
-}
-
 string Follower::GetName() { return _name; }
 string Follower::GetEmail() { return _email; }
 
@@ -84,7 +75,7 @@ void Follower::AcceptedFriendRequest(Follower& Friend)
 
 	while (index)
 	{
-		if (*index == Friend)
+		if (index->GetEmail() == Friend.GetEmail() && index->GetName() == Friend.GetName())
 		{
 			_Friends->prepend(*index);
 			_FRequests->delete_current();
@@ -105,7 +96,7 @@ void Follower::RemoveFriend(Follower& Friend)
 
 	while (index)
 	{
-		if (*index == Friend)
+		if (index->GetEmail() == Friend.GetEmail() && index->GetName() == Friend.GetName())
 		{
 			_Friends->delete_current();
 		}

@@ -11,7 +11,7 @@ class Follower {
 public:
 	Follower(string name, string email, string password);
 	~Follower();
-	bool operator==(Follower& f1) const;
+	
 
     string GetName(); //Checked
 	string GetEmail(); //Checked

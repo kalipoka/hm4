@@ -28,7 +28,7 @@ void Leader::RemoveFollower(Follower& Friend)
 
 	while (index)
 	{
-		if (*index == Friend)
+		if (index->GetEmail() == Friend.GetEmail() && index->GetName() == Friend.GetName())
 		{
 			_Followers->delete_current();
 		}
