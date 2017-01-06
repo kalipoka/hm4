@@ -55,7 +55,7 @@ private:
 
 	// network indications  - maybe need more...
 	Follower *_Active_Follower; // maybe can use inheritance?
-	//Leader *_Active_Leader;
+	Leader *_Active_Leader;
 
 	Leader*_find_leader(string email);
 	Follower *_find_follower(string email);
