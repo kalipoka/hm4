@@ -123,9 +123,12 @@ void Follower::AddMessage(Message& newMessage)
 	_MessageBox->prepend(newMessage);
 }
 
-void Follower::ReadMessage(int MessageNum) const//<messageNumber>
+Result Follower::ReadMessage(int MessageNum) const//<messageNumber>
 {
-	_MessageBox->ReadMessage(MessageNum);
+	if (_MessageBox->ReadMessage(MessageNum) == SUCCESS)
+		return SUCCESS;
+	else
+		return FAILURE;     //if message number is too big
 }
 
 void Follower::SendMessage(Message& TheMessage, Follower& Friend)

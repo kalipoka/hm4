@@ -28,7 +28,7 @@ public:
 	//Messages operations
 	void ShowMessageList() const;
 	void AddMessage(Message& newMessage);
-	void ReadMessage(int MessageNum) const; //<messageNumber>
+	Result ReadMessage(int MessageNum) const; //<messageNumber>   //Alex Changed to result type
 	void SendMessage(Message& TheMessage, Follower& Friend);
 	int NumUnreadMessages() const;
 	bool isFriend(string mail);

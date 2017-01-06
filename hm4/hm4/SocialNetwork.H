@@ -9,7 +9,6 @@
 #include <string>
 using namespace std;
 
-
 class SocialNetwork {
 public:
 	SocialNetwork(string name, string password);   //alex - done
@@ -36,8 +35,8 @@ public:
 	void RemoveFriend(string friendEmail); //ofir
 
 	void ShowMessageList();                  // alex - done
-	void ReadMessage(int messageNum);
-	void SendMessage(string email, string subject, string content);
+	void ReadMessage(int messageNum);		 // alex - done
+	void SendMessage(string email, string subject, string content); 
 
 	void Follow(string leaderEmail);
 

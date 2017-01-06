@@ -197,6 +197,7 @@ void SocialNetwork::Login(string email, string password)
 			_any_body_in = true;
 			_is_leader = true;
 			_Active_Follower = tmp;
+			_Active_Leader = tmp;
 			cout << LOGIN_SUCCESS;
 		}
 	}
@@ -207,6 +208,7 @@ void SocialNetwork::Login(string email, string password)
 		{
 			_any_body_in = true;
 			_Active_Follower = tmp;
+			_Active_Leader = NULL;
 			cout << LOGIN_SUCCESS;
 		}
 	}
@@ -248,11 +250,30 @@ void SocialNetwork::ShowMessageList()
 		cout << SHOW_MESSAGE_LIST_FAIL;
 	else
 	{
-		_Active_Follower->ShowMessageList();
+		_Active_Follower->ShowMessageList();       // Maybe will need modifications to the def file
 	}
 }
 
+void SocialNetwork::ReadMessage(int messageNum)
+{
+	if (!_any_body_in) // no one home
+		cout << READ_MESSAGE_FAIL;
+	else             // some one connected         
+	{	
+		if (_Active_Follower->ReadMessage(messageNum) == FAILURE ) // Maybe will need modifications to the def file
+			cout << READ_MESSAGE_FAIL;
+	}
+}
 
+void SocialNetwork::SendMessage(string email, string subject, string content)
+{
+	if ((_any_body_in)
+	{
+		//if (is_frind);
+	}
+	
+	
+} 
 void SocialNetwork::SendFriendRequest(string friendEmail)
 {
 	if (!_any_body_in) {
