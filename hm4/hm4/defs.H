@@ -6,7 +6,7 @@
 #define ADMIN_LOGIN_FAIL "Failed to login as admin"
 
 // Login
-#define LOGIN_SUCCESS "Hi, " << activeFollower->GetName() << ". Welcome to " << name_ << endl << "Notifications: " << activeFollower->NumUnreadMessages() << " unread messages, " << activeFollower->NumFriendRequests() << " friend requests."
+#define LOGIN_SUCCESS "Hi, " << _Active_Follower->GetName() << ". Welcome to " << _network_name << endl << "Notifications: " << _Active_Follower->NumUnreadMessages() << " unread messages, " << _Active_Follower->NumFriendRequests() << " friend requests."
 #define LOGIN_FAIL "User name or password incorrect"
 
 // Logout

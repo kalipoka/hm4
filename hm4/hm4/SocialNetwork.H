@@ -57,7 +57,7 @@ private:
 	Follower *_Active_Follower; // maybe can use inheritance?
 	Leader *_Active_Leader;
 
-	Leader *_find_leader(string email);
+	Leader*_find_leader(string email);
 	Follower *_find_follower(string email);
 
 	bool _any_body_in;       //if there is anyone connected

@@ -30,7 +30,7 @@ SocialNetwork::~SocialNetwork()
 	delete _Leaders;
 
 	delete &_any_body_in;
-	delete &_email_connected;
+	//delete &_email_connected;
 	delete &_is_admin;
 	delete &_is_leader;
 }
@@ -175,6 +175,64 @@ void SocialNetwork::ShowFriendList()
 	else {
 		_Active_Follower->DisplayFriendList();
 	}
+}
+
+void SocialNetwork::Login(string email, string password)
+{
+	int user_type = SocialNetwork::user_identifyer(email);
+	if (user_identifyer == 0) // user does not exist
+		cout << LOGIN_FAIL;  // user does not exist
+
+	if (user_type == 1)       // it is a leader, look in  and compare in leaders list
+	{
+		Leader* tmp = SocialNetwork::_find_leader(email);
+		if (tmp->isPassword(password))   // password is OK
+		{
+			_any_body_in = true;
+			_is_leader = true;
+			_Active_Follower = tmp;
+			cout << LOGIN_SUCCESS;
+		}
+	}
+	if (user_type == 2)
+	{
+		Follower* tmp = SocialNetwork::_find_follower(email);
+		if (tmp->isPassword(password))   // password is OK
+		{
+			_any_body_in = true;
+			_Active_Follower = tmp;
+			cout << LOGIN_SUCCESS;
+		}
+	}
+}
+
+Leader* SocialNetwork::_find_leader(string email)
+{
+	_Leaders->go_to_first();
+	Leader* indexL = _Leaders->get_current();
+	while (indexL)
+	{
+		if (indexL->GetEmail() == email)
+			return indexL;
+
+		_Leaders->next();
+		indexL = _Leaders->get_current();
+	}
+	return NULL;
+}
+Follower* SocialNetwork::_find_follower(string email)
+{
+	_Followers->go_to_first();
+	Follower* indexF = _Followers->get_current();
+	while (indexF)
+	{
+		if (indexF->GetEmail() == email)
+			return indexF;
+
+		_Followers->next();
+		indexF = _Leaders->get_current();
+	}
+	return NULL;
 }
 
 
