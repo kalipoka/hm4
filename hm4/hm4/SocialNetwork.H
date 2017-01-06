@@ -33,10 +33,10 @@ public:
 	void SendFriendRequest(string friendEmail); //ofir
 	void AcceptFriendRequest(string friendEmail); //ofir
 	void RemoveFriend(string friendEmail); //ofir
-
-	void ShowMessageList();                  // alex - done
-	void ReadMessage(int messageNum);		 // alex - done
-	void SendMessage(string email, string subject, string content); // alex - done 
+	// this sections needs to add friends before debug
+	void ShowMessageList();                  // alex - done - await upper debug
+	void ReadMessage(int messageNum);		 // alex - done - await upper debug
+	void SendMessage(string email, string subject, string content); // alex - await upper debug
 
 	void Follow(string leaderEmail);       // alex - done and CHECKED 
 
