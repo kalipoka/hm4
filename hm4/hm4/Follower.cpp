@@ -138,6 +138,36 @@ int Follower::NumUnreadMessages() const
 	return _MessageBox->UnreadSize();
 }
 
+bool Follower::isFriend(string mail)
+{
+	_Friends->go_to_first();
+	Follower* index = _Friends->get_current();
+
+	while (index)
+	{
+		if (index->GetEmail().compare(mail))
+			return true;
+		_Friends->next();
+		index = _Friends->get_current();
+	}
+	return false;
+}
+
+bool Follower::isRequestExists(string mail)
+{
+	_FRequests->go_to_first();
+	Follower* index = _FRequests->get_current();
+
+	while (index)
+	{
+		if (index->GetEmail().compare(mail))
+			return true;
+		_FRequests->next();
+		index = _FRequests->get_current();
+	}
+	return false;
+}
+
 
 /*
 int main()

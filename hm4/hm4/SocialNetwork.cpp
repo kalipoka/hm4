@@ -122,6 +122,28 @@ int SocialNetwork::user_identifyer(string email)
 	return 0;   // email does not exist
 }
 
+Follower* SocialNetwork::_FollowerByMail(string email)
+{
+	_Followers->go_to_first();
+	_Leaders->go_to_first();
+
+	Follower* indexF = _Followers->get_current();
+	Leader* indexL = _Leaders->get_current();
+	while (indexF || indexL)
+	{
+		if (indexF->GetEmail() == email)
+			return indexF;      // exists and it is a follower
+		if (indexL->GetEmail() == email)
+			return indexL;      // exists and it is a leader		
+
+		_Followers->next();
+		_Leaders->next();
+		indexF = _Followers->get_current();
+		indexL = _Leaders->get_current();
+	}
+	return NULL;   // email does not exist
+}
+
 void SocialNetwork::Login(string email, string password)
 {
 	int user_type = SocialNetwork::user_identifyer(email);
@@ -169,12 +191,8 @@ void SocialNetwork::ShowFriendList()
 		cout << SHOW_FRIEND_LIST_FAIL;
 		return;
 	}
-	if (_is_leader) {
-		_Active_Leader->DisplayFriendList();
-	}
-	else {
-		_Active_Follower->DisplayFriendList();
-	}
+	_Active_Follower->DisplayFriendList();
+	
 }
 
 void SocialNetwork::Login(string email, string password)
@@ -262,10 +280,48 @@ void SocialNetwork::SendFriendRequest(string friendEmail)
 
 	if (user_id) //user doesn't exist
 		cout << SEND_FRIEND_REQUEST_FAIL;
+	
+	if (_Active_Follower->isFriend(friendEmail) || _Active_Follower->isRequestExists(friendEmail)) { //friend already exists
+		cout << SEND_FRIEND_REQUEST_FAIL;
+		return;
+	}
 
+
+	_FollowerByMail(friendEmail)->AddFriendRequest(*_Active_Follower); //send the friend request
 
 }
 
+void SocialNetwork::AcceptFriendRequest(string friendEmail)
+{
+	if (!_any_body_in) {
+		cout << ACCEPT_FRIEND_REQUEST_FAIL;
+		return;
+	}
+
+	if (_Active_Follower->isRequestExists(friendEmail)) {
+		_Active_Follower->AcceptedFriendRequest(*_FollowerByMail(friendEmail)); //add the follower
+		cout << ACCEPT_FRIEND_REQUEST_SUCCESS;
+	}
+	else {
+		cout << ACCEPT_FRIEND_REQUEST_FAIL;
+	}
+	return;
+}
+
+void SocialNetwork::RemoveFriend(string friendEmail)
+{
+	if (!_any_body_in) {
+		cout << REMOVE_FRIEND_FAIL;
+		return;
+	}
+	if (_Active_Follower->isFriend(friendEmail)) {
+		_Active_Follower->RemoveFriend(*_FollowerByMail(friendEmail)); //remove the friend
+		cout << REMOVE_FRIEND_SUCCESS;
+	}
+	else {
+		cout << REMOVE_FRIEND_FAIL;
+	}
+}
 
 // General actions
 /*
