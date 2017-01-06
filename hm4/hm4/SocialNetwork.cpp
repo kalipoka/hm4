@@ -214,12 +214,12 @@ Leader* SocialNetwork::_find_leader(string email)
 	{
 		if (indexL->GetEmail() == email)
 			return indexL;
-
 		_Leaders->next();
 		indexL = _Leaders->get_current();
 	}
 	return NULL;
 }
+
 Follower* SocialNetwork::_find_follower(string email)
 {
 	_Followers->go_to_first();
@@ -233,6 +233,17 @@ Follower* SocialNetwork::_find_follower(string email)
 		indexF = _Leaders->get_current();
 	}
 	return NULL;
+}
+
+
+void SocialNetwork::ShowMessageList()
+{
+	if (!_any_body_in) // no one home
+		cout << SHOW_MESSAGE_LIST_FAIL;
+	else
+	{
+		_Active_Follower->ShowMessageList();
+	}
 }
 
 
