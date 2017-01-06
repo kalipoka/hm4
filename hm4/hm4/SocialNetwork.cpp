@@ -21,27 +21,35 @@ SocialNetwork::SocialNetwork(string name, string password)
 	_is_admin = false;
 	_is_leader = false;
 }
-
+// destructor
 SocialNetwork::~SocialNetwork()
 {
-	delete &_network_name;    //  added the & so it become a pointer - check later;
-	delete &_admin_password;
+	//delete &_network_name;    //  added the & so it become a pointer - check later;
+	//delete &_admin_password;
+	_Followers->release();
 	delete _Followers;
+	_Leaders->release();
 	delete _Leaders;
 
-	delete &_any_body_in;
+	delete _Active_Follower;
+	delete _Active_Leader;
+	//delete &_any_body_in;
 	//delete &_email_connected;
-	delete &_is_admin;
-	delete &_is_leader;
+	//delete &_is_admin;
+	//delete &_is_leader;
 }
-
+// function for admin login
 void SocialNetwork::AdminLogin(string password)
 {
-	if (password.compare(_admin_password))   // check the passwrod
+	if (!_admin_password.compare(password))   // check the passwrod
 	{
 		//admin login succesfull
 		_any_body_in = true;
 		_is_admin = true;
+		_is_leader = false;
+		_Active_Follower = NULL;
+		_Active_Leader = NULL;
+
 		cout << ADMIN_LOGIN_SUCCESS << _network_name << "\n";
 	}
 	else
@@ -68,9 +76,11 @@ void SocialNetwork::Logout()
 		cout << LOGOUT_FAIL;
 }
 
+// function adds follower to social network
 void SocialNetwork::CreateFollower(string name, string email, string password)
 {
-	if (SocialNetwork::user_identifyer(email))   //user email exists
+	int type = user_identifyer(email);
+	if ( type != 0)   //user email exists
 	{
 		cout << CREATE_FOLLOWER_FAIL;
 	}
@@ -83,9 +93,11 @@ void SocialNetwork::CreateFollower(string name, string email, string password)
 	}
 }
 
+// function adds leader to social network
 void SocialNetwork::CreateLeader(string name, string email, string password)
 {
-	if (SocialNetwork::user_identifyer(email) || (_is_admin == false))   //user email exists or not admin
+	int type = user_identifyer(email);
+	if ( type!=0 || (_is_admin == false))   //user email exists or not admin
 	{
 		cout << CREATE_LEADER_FAIL;
 	}
@@ -100,7 +112,7 @@ void SocialNetwork::CreateLeader(string name, string email, string password)
 
 //check if this email already exists in leaders or followers list
 // indicates if the leader is follower or leader
-// 1 for leader 2 for follower
+// 1 for leader 2 for follower 0 for nothing
 
 int SocialNetwork::user_identifyer(string email)
 {
@@ -109,21 +121,55 @@ int SocialNetwork::user_identifyer(string email)
 
 	Follower* indexF = _Followers->get_current();
 	Leader* indexL = _Leaders->get_current();
-	while (indexF || indexL)
-	{
-		if (indexF->GetEmail() == email)
-			return 2;      // exists and it is a follower
-		if (indexL->GetEmail() == email)
-			return 1;      // exists and it is a leader		
 
+	while (indexF)
+	{
+		if (!indexF->GetEmail().compare(email))    //equal if 0
+			return 2;      // exists and it is a follower
 		_Followers->next();
-		_Leaders->next();
 		indexF = _Followers->get_current();
+	}
+
+	while (indexL)
+	{
+		if (!indexL->GetEmail().compare(email))
+			return 1;      // exists and it is a leader	
+		_Leaders->next();
 		indexL = _Leaders->get_current();
 	}
+
 	return 0;   // email does not exist
 }
 
+
+// to find the follower my email - after debug version
+Follower* SocialNetwork::_FollowerByMail(string email)
+{
+	_Followers->go_to_first();
+	_Leaders->go_to_first();
+
+	Follower* indexF = _Followers->get_current();
+	Leader* indexL = _Leaders->get_current();
+	
+	while (indexF)
+	{
+		if (!indexF->GetEmail().compare(email))    //equal if 0
+			return indexF;      // exists and it is a follower
+		_Followers->next();
+		indexF = _Followers->get_current();
+	}
+
+	while (indexL)
+	{
+		if (!indexL->GetEmail().compare(email))
+			return indexL;      // exists and it is a leader	
+		_Leaders->next();
+		indexL = _Leaders->get_current();
+	}
+	return NULL;   // email does not exist
+}
+
+/*
 Follower* SocialNetwork::_FollowerByMail(string email)
 {
 	_Followers->go_to_first();
@@ -145,7 +191,7 @@ Follower* SocialNetwork::_FollowerByMail(string email)
 	}
 	return NULL;   // email does not exist
 }
-
+*/
 
 void SocialNetwork::BroadcastMessage(string subject, string content)
 {
@@ -198,10 +244,18 @@ void SocialNetwork::Login(string email, string password)
 		{
 			_any_body_in = true;
 			_is_leader = true;
+			_is_admin = false;
 			_Active_Follower = tmp;
 			_Active_Leader = tmp;
 			cout << LOGIN_SUCCESS;
+			return;
 		}
+		else
+		{
+			cout << LOGIN_FAIL;
+			return;
+		}
+			
 	}
 	if (user_type == 2)
 	{
@@ -209,9 +263,16 @@ void SocialNetwork::Login(string email, string password)
 		if (tmp->isPassword(password))   // password is OK
 		{
 			_any_body_in = true;
+			_is_admin = false;
+			_is_leader = false;
 			_Active_Follower = tmp;
 			_Active_Leader = NULL;
 			cout << LOGIN_SUCCESS;
+		}
+		else
+		{
+			cout << LOGIN_FAIL;
+			return;
 		}
 	}
 }
@@ -248,12 +309,18 @@ Follower* SocialNetwork::_find_follower(string email)
 
 void SocialNetwork::ShowMessageList()
 {
-	if (!_any_body_in) // no one home
+	if (!_any_body_in || _is_admin == true) // no one home or admin connected
+	{
 		cout << SHOW_MESSAGE_LIST_FAIL;
+		return;
+	}
+		
 	else
 	{
 		_Active_Follower->ShowMessageList();       // Maybe will need modifications to the def file
+		return;
 	}
+
 }
 
 void SocialNetwork::ReadMessage(int messageNum)
@@ -389,11 +456,75 @@ cout << i + 1 << ") " << curLeader->GetName() << ": " << curLeader->GetEmail() <
 }
 
 */
-
+//    @@@@@@@@@@@@@@@                DEBUUUUUUUUUUUUUUG             @@@@@@@@@@@@@@@@2
 int main()
 {
+	Message msg1("alibaba", "shodedim", "tellmestory");
+	Message msg2("eli", "yossi", "chupar me la");
+	Message msg3("Sneh", "Shussman", "fuck me");
+
+
 	SocialNetwork SocNetwork("MamatNet", "1234");
-	int num = 5;
+	// login test
+	SocNetwork.AdminLogin("bulbul");
+	cout << "\n";
+	SocNetwork.AdminLogin("1234");
+
+	/*
+	SocNetwork.Logout();   cout << "\n";         //shoud succeed
+	SocNetwork.Logout();	cout << "\n";		//shoud fail
+	//SocNetwork.Login("f1@walla", "1234");
+	
+	Leader F1("f1", "f1@walla", "1234");
+	Follower F2("f2", "f2@walla", "4321");
+	Follower F3("f3", "f2@walla", "qwerty");
+	*/
+
+	
+	SocNetwork.CreateLeader("L1", "L@gmail", "1234");   //s
+	cout << "\n";
+	SocNetwork.CreateFollower("Zenzor", "f@w", "4321"); //s
+	cout << "\n";
+	SocNetwork.CreateFollower("Zenzor1", "f@w", "4321");// f
+	cout << "\n";
+	SocNetwork.CreateFollower("Aliza", "twogirls@onecup", "qwerty"); //s
+	cout << "\n";
+	SocNetwork.CreateFollower("Yossi", "hedva@onecup", "qwerty"); //s
+	cout << "\n";
+	SocNetwork.CreateLeader("f1", "L@gmail", "1234"); //f
+	cout << "\n";
+	SocNetwork.CreateLeader("f1", "L2@gmail", "1234");  //s
+	cout << "\n";
+
+	SocNetwork.Login("sneeeeh", "werwe");   cout << "\n";   //  login wrong email
+	SocNetwork.Login("L2@gmail", "werwe");  cout << "\n";  //  leader login wrong password
+	SocNetwork.Login("L2@gmail", "1234");	cout << "\n"; // leader login correct password
+	 
+	SocNetwork.Login("sneeeehgg", "werwe");    cout << "\n";   //   login wrong email
+	SocNetwork.Login("hedva@onecup", "werer"); cout << "\n";  //  follower login wrong password
+	SocNetwork.Login("hedva@onecup", "qwerty"); cout << "\n";  //  follower login correct password
+	
+	// testing for messages  $$$$$$$$$$$$$$$$$$$$$ need to add friend before
+
+	SocNetwork.AdminLogin("1234"); cout << "\n";
+	SocNetwork.ShowMessageList(); cout << "\n";
+	SocNetwork.Login("hedva@onecup", "qwerty"); cout << "\n";  //  follower login correct password
+	SocNetwork.ShowMessageList(); cout << "\n";
+	// need to send messages before
+	SocNetwork.ReadMessage(2);          // need to fail - not messages yet
+	cout << "\n";
+	SocNetwork.SendMessage("hedva@onecup", "Hi_Nigger", "You are a nigger");  //wrong email
+	cout << "\n";
+	SocNetwork.SendMessage("hedva@onecup", "Hi_Nigger", "You are a nigger");   //should work
+	cout << "\n";
+
+	// testing for Follow
+	SocNetwork.Login("hedva@onecup", "qwerty"); cout << "\n";  //  follower login correct password
+
+	SocNetwork.Follow("zzzzzzzzzzzz");   cout << "\n"; // should fail - no such follower
+	SocNetwork.Follow("L2@gmail");  cout << "\n";  // shoud succeed
+	SocNetwork.Follow("L2@gmail");  cout << "\n";  // shoud fail - already follow this one
+
 
 	return 0;
 }

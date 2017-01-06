@@ -61,7 +61,7 @@ bool Leader::isFollower(string mail)
 
 	while (index)
 	{
-		if (index->GetEmail().compare(mail))
+		if (!index->GetEmail().compare(mail))
 			return true;
 		_Followers->next();
 		index = _Followers->get_current();
