@@ -525,6 +525,6 @@ int main()
 	SocNetwork.Follow("L2@gmail");  cout << "\n";  // shoud succeed
 	SocNetwork.Follow("L2@gmail");  cout << "\n";  // shoud fail - already follow this one
 
-
+	int num = 6;
 	return 0;
 }
