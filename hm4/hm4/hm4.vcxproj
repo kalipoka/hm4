@@ -150,14 +150,15 @@
     <ClCompile Include="Leader.cpp" />
     <ClCompile Include="Lists.cpp" />
     <ClCompile Include="Message.cpp" />
+    <ClCompile Include="SocialNetwork.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\AppData\Local\Temp\Mxt94\tmp\dragdrop\SocialNetwork.H" />
     <ClInclude Include="defs.H" />
     <ClInclude Include="Follower.H" />
     <ClInclude Include="Leader.H" />
     <ClInclude Include="Lists.H" />
     <ClInclude Include="Message.H" />
+    <ClInclude Include="SocialNetwork.H" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\AppData\Local\Temp\Mxt94\tmp\dragdrop\change_extensions" />

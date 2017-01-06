@@ -136,7 +136,7 @@ int Follower::CountMessages() const
 }
 
 
-
+/*
 int main()
 {
 	//Message* msg1 = new Message("alibaba", "shodedim", "tellmestory");
@@ -191,3 +191,4 @@ int main()
 	//cout << F2.GetName() << " " << F2.GetEmail << "\n";
 	return 0;
 }
+*/
