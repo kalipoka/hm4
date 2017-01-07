@@ -43,7 +43,7 @@ public:
 	// General actions
 	void FindUser(string partialName);
 	
-	
+	void Exit();
 
 private:
 	// To do

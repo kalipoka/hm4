@@ -464,7 +464,7 @@ void SocialNetwork::SendMessage(string email, string subject, string content)
 	if ((_any_body_in) && _Active_Follower->isFriend(email))
 	{
 		Message* new_message;
-		new_message = new Message(email, subject, content);
+		new_message = new Message(_Active_Follower->GetEmail(), subject, content);
 		_Messages->prepend(*new_message); // A list for all the messages in the network so we can delete them and ensure no memory leak
 		_FollowerByMail(email)->AddMessage(*new_message);
 		cout << SEND_MESSAGE_SUCCESS;
@@ -568,6 +568,10 @@ void SocialNetwork::RemoveFriend(string friendEmail)
 	}
 }
 
+void SocialNetwork::Exit()
+{
+	SocialNetwork::~SocialNetwork();
+}
 
 // General actions
 /*
@@ -653,14 +657,31 @@ int main()
 	SocNetwork.DeleteUser("f3@");	cout << "\n";
 
 	SocNetwork.Login("l3@", "1234"); cout << "\n";
-
+	/*
 	SocNetwork.AdminLogin("1234");	cout << "\n";
 	SocNetwork.DeleteUser("l1@");	cout << "\n";
 	SocNetwork.DeleteUser("f2@");	cout << "\n";
 	SocNetwork.DeleteUser("f3@");
 
 	SocNetwork.Login("l3@", "1234"); cout << "\n";
+	SocNetwork.Follow("l3@"); cout << "\n";
+	SocNetwork.Login("f4@", "1234");cout << "\n";
+	SocNetwork.Follow("l3@"); cout << "\n";
+	*/
+
+
+	 //Accept friend request - send message
+	SocNetwork.Login("f4@", "1234");cout << "\n";
+	SocNetwork.AcceptFriendRequest("f3@"); cout << "\n";
+	SocNetwork.SendMessage("f0@", "Hi_Nigger", "You are a nigger"); cout << "\n";  //wrong email
+	SocNetwork.SendMessage("f3@", "Hi_Nigger", "You are a nigger"); cout << "\n"; //correct email
+	// check if we received the message - then read and display the images
+	SocNetwork.Login("f3@", "1234");cout << "\n";
+	SocNetwork.ShowMessageList();cout << "\n";
+	SocNetwork.ReadMessage(1); cout << "\n";
+	SocNetwork.ShowMessageList();cout << "\n";
 	
+
 	/*
 	//needed tests:
 	void ShowFriendRequests(); //ofir - checked
@@ -696,6 +717,5 @@ int main()
 
 	int num = 6;
 	*/
-	int num = 6;
 	return 0;
 }
