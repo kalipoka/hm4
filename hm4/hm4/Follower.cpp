@@ -148,7 +148,7 @@ bool Follower::isFriend(string mail)
 
 	while (index)
 	{
-		if (index->GetEmail().compare(mail))
+		if (!index->GetEmail().compare(mail))
 			return true;
 		_Friends->next();
 		index = _Friends->get_current();
@@ -163,7 +163,7 @@ bool Follower::isRequestExists(string mail)
 
 	while (index)
 	{
-		if (index->GetEmail().compare(mail))
+		if (!index->GetEmail().compare(mail))
 			return true;
 		_FRequests->next();
 		index = _FRequests->get_current();

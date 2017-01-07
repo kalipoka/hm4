@@ -23,16 +23,17 @@ public:
 	void DeleteUser(string email);
 
 	// Leader actions	
-	void BroadcastMessage(string subject, string content); //ofir
+	
 
 	// Follower actions (also leader actions)
 	void CreateFollower(string name, string email, string password);  //alex - done and CHECKED 
 
-	void ShowFriendRequests(); //ofir
-	void ShowFriendList(); //ofir
-	void SendFriendRequest(string friendEmail); //ofir
-	void AcceptFriendRequest(string friendEmail); //ofir
-	void RemoveFriend(string friendEmail); //ofir
+	void ShowFriendRequests(); //ofir - done and CHECKED
+	void ShowFriendList(); //ofir - done and CHECKED
+	void SendFriendRequest(string friendEmail); //ofir - done and CHECKED
+	void AcceptFriendRequest(string friendEmail); //ofir - done and CHECKED
+	void RemoveFriend(string friendEmail); //ofir - done and CHECKED
+	void BroadcastMessage(string subject, string content); //ofir - done and CHECKED
 	// this sections needs to add friends before debug
 	void ShowMessageList();                  // alex - done - await upper debug
 	void ReadMessage(int messageNum);		 // alex - done - await upper debug
@@ -42,6 +43,7 @@ public:
 
 	// General actions
 	void FindUser(string partialName);
+
 private:
 	// To do
 	//network info
@@ -63,7 +65,7 @@ private:
 	bool _is_admin;
 	bool _is_leader;
 	// 0: not exists , 1:leader, 2: follower
-	int user_identifyer(string email);  //                             alex - done and CHECKED
+	int user_identifier(string email);  //                             alex - done and CHECKED
 	Follower* _FollowerByMail(string email);
 };
 

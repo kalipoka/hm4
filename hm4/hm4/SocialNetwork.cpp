@@ -22,22 +22,17 @@ SocialNetwork::SocialNetwork(string name, string password)
 	_is_leader = false;
 }
 // destructor
+
+
 SocialNetwork::~SocialNetwork()
 {
-	//delete &_network_name;    //  added the & so it become a pointer - check later;
-	//delete &_admin_password;
 	_Followers->release();
 	delete _Followers;
 	_Leaders->release();
 	delete _Leaders;
-
-	delete _Active_Follower;
-	delete _Active_Leader;
-	//delete &_any_body_in;
-	//delete &_email_connected;
-	//delete &_is_admin;
-	//delete &_is_leader;
 }
+
+
 // function for admin login
 void SocialNetwork::AdminLogin(string password)
 {
@@ -79,7 +74,7 @@ void SocialNetwork::Logout()
 // function adds follower to social network
 void SocialNetwork::CreateFollower(string name, string email, string password)
 {
-	int type = user_identifyer(email);
+	int type = user_identifier(email);
 	if ( type != 0)   //user email exists
 	{
 		cout << CREATE_FOLLOWER_FAIL;
@@ -96,7 +91,7 @@ void SocialNetwork::CreateFollower(string name, string email, string password)
 // function adds leader to social network
 void SocialNetwork::CreateLeader(string name, string email, string password)
 {
-	int type = user_identifyer(email);
+	int type = user_identifier(email);
 	if ( type!=0 || (_is_admin == false))   //user email exists or not admin
 	{
 		cout << CREATE_LEADER_FAIL;
@@ -114,7 +109,7 @@ void SocialNetwork::CreateLeader(string name, string email, string password)
 // indicates if the leader is follower or leader
 // 1 for leader 2 for follower 0 for nothing
 
-int SocialNetwork::user_identifyer(string email)
+int SocialNetwork::user_identifier(string email)
 {
 	_Followers->go_to_first();
 	_Leaders->go_to_first();
@@ -206,19 +201,13 @@ void SocialNetwork::BroadcastMessage(string subject, string content)
 	cout << BROADCAST_MESSAGE_SUCCESS;
 }
 
-
 void SocialNetwork::ShowFriendRequests()
 {
 	if (!_any_body_in) {
 		cout << SHOW_FRIEND_REQUESTS_FAIL;
 		return;
 	}
-	if (_is_leader){
-		_Active_Leader->DisplayFriendRequests();
-	}
-	else {
-		_Active_Follower->DisplayFriendRequests();
-	}
+	_Active_Follower->DisplayFriendRequests();
 }
 
 void SocialNetwork::ShowFriendList()
@@ -233,7 +222,7 @@ void SocialNetwork::ShowFriendList()
 
 void SocialNetwork::Login(string email, string password)
 {
-	int user_type = SocialNetwork::user_identifyer(email);
+	int user_type = SocialNetwork::user_identifier(email);
 	if (user_type == 0) // user does not exist
 		cout << LOGIN_FAIL;  // user does not exist
 
@@ -280,13 +269,13 @@ void SocialNetwork::Login(string email, string password)
 Leader* SocialNetwork::_find_leader(string email)
 {
 	_Leaders->go_to_first();
-	Leader* indexL = _Leaders->get_current();
-	while (indexL)
+	Leader* index = _Leaders->get_current();
+	while (index)
 	{
-		if (indexL->GetEmail() == email)
-			return indexL;
+		if (index->GetEmail() == email)
+			return index;
 		_Leaders->next();
-		indexL = _Leaders->get_current();
+		index = _Leaders->get_current();
 	}
 	return NULL;
 }
@@ -294,18 +283,17 @@ Leader* SocialNetwork::_find_leader(string email)
 Follower* SocialNetwork::_find_follower(string email)
 {
 	_Followers->go_to_first();
-	Follower* indexF = _Followers->get_current();
-	while (indexF)
+	Follower* index = _Followers->get_current();
+	while (index)
 	{
-		if (indexF->GetEmail() == email)
-			return indexF;
+		if (index->GetEmail() == email)
+			return index;
 
 		_Followers->next();
-		indexF = _Leaders->get_current();
+		index = _Followers->get_current();
 	}
 	return NULL;
 }
-
 
 void SocialNetwork::ShowMessageList()
 {
@@ -349,7 +337,7 @@ void SocialNetwork::SendMessage(string email, string subject, string content)
 
 void SocialNetwork::Follow(string leaderEmail)
 {
-	int type = user_identifyer(leaderEmail);
+	int type = user_identifier(leaderEmail);
 
 	if ((!_any_body_in) || (type!=1))
 	{
@@ -378,21 +366,30 @@ void SocialNetwork::SendFriendRequest(string friendEmail)
 		cout << SEND_FRIEND_REQUEST_FAIL;
 		return;
 	}
-	if (_Active_Follower->GetEmail().compare(friendEmail)){ //friend himself
+
+	if (!_Active_Follower->GetEmail().compare(friendEmail)){ //friend himself
 		cout << SEND_FRIEND_REQUEST_FAIL;
 		return;
 	}
 
-	int user_id = user_identifyer(friendEmail);
+	int user_id = user_identifier(friendEmail);
 
-	if (!user_id) //user doesn't exist                 //alex added ! 
-		cout << SEND_FRIEND_REQUEST_FAIL;
-	
-	if (_Active_Follower->isFriend(friendEmail) || _Active_Follower->isRequestExists(friendEmail)) { //friend already exists
+	if (!user_id) { //user doesn't exist
 		cout << SEND_FRIEND_REQUEST_FAIL;
 		return;
 	}
 
+	Follower* temp = _find_follower(friendEmail);
+
+	if (temp->isFriend(_Active_Follower->GetEmail())) { //friend already exists - SHOULD BE ON THE SENDED mail
+		cout << SEND_FRIEND_REQUEST_FAIL;
+		return;
+	}
+
+	if (temp->isRequestExists(_Active_Follower->GetEmail())) { //friend already exists - SHOULD BE ON THE SENDED mail
+		cout << SEND_FRIEND_REQUEST_FAIL;
+		return;
+	}
 
 	_FollowerByMail(friendEmail)->AddFriendRequest(*_Active_Follower); //send the friend request
 
@@ -463,47 +460,61 @@ int main()
 	Message msg2("eli", "yossi", "chupar me la");
 	Message msg3("Sneh", "Shussman", "fuck me");
 
-
-	SocialNetwork SocNetwork("MamatNet", "1234");
+		SocialNetwork SocNetwork("MamatNet", "1234");
 	// login test
 	SocNetwork.AdminLogin("bulbul");
 	cout << "\n";
 	SocNetwork.AdminLogin("1234");
 
-	/*
-	SocNetwork.Logout();   cout << "\n";         //shoud succeed
-	SocNetwork.Logout();	cout << "\n";		//shoud fail
-	//SocNetwork.Login("f1@walla", "1234");
 	
-	Leader F1("f1", "f1@walla", "1234");
-	Follower F2("f2", "f2@walla", "4321");
-	Follower F3("f3", "f2@walla", "qwerty");
+	SocNetwork.CreateLeader("L1", "l1@", "1234");   //s
+	cout << "\n";
+	SocNetwork.CreateLeader("L2", "l2@", "1234");  //s
+	cout << "\n";
+	SocNetwork.CreateLeader("L3", "l3@", "1234");  //s
+	cout << "\n";
+	SocNetwork.CreateFollower("Zenzor1", "f1@", "1234"); //s
+	cout << "\n";
+	SocNetwork.CreateFollower("Zenzor2", "f2@", "1234"); //s
+	cout << "\n";
+	SocNetwork.CreateFollower("Zenzor3", "f3@", "1234"); //s
+	cout << "\n";
+	SocNetwork.CreateFollower("Zenzor4", "f4@", "1234"); //s
+	cout << "\n";
+
+
+	SocNetwork.Login("l1@", "1234");	cout << "\n"; // leader login correct password
+	SocNetwork.SendFriendRequest("f4@");
+	SocNetwork.Follow("l3@");
+	SocNetwork.Login("f2@", "1234");	cout << "\n"; // leader login correct password
+	SocNetwork.SendFriendRequest("f4@");
+	SocNetwork.Follow("l3@");
+	SocNetwork.Login("f3@", "1234");	cout << "\n"; // leader login correct password
+	SocNetwork.SendFriendRequest("f4@");
+	SocNetwork.Follow("l3@");
+	
+	SocNetwork.Login("l3@", "1234"); cout << "\n";
+	SocNetwork.BroadcastMessage("A message", "From the prime leader");
+
+	SocNetwork.Login("f3@", "1234");
+	SocNetwork.ShowMessageList();
+
+
+
+	//SocNetwork.BroadcastMessage("A message", "From the prime leader");	cout << "\n";
+
+	/*
+	//needed tests:
+	void ShowFriendRequests(); //ofir - checked
+	void ShowFriendList(); //ofir = checked
+	void SendFriendRequest(string friendEmail); //ofir = checked
+	void AcceptFriendRequest(string friendEmail); //ofir = checked
+	void RemoveFriend(string friendEmail); //ofir = checked
+	void BroadcastMessage(string subject, string content); //ofir
 	*/
 
-	
-	SocNetwork.CreateLeader("L1", "L@gmail", "1234");   //s
-	cout << "\n";
-	SocNetwork.CreateFollower("Zenzor", "f@w", "4321"); //s
-	cout << "\n";
-	SocNetwork.CreateFollower("Zenzor1", "f@w", "4321");// f
-	cout << "\n";
-	SocNetwork.CreateFollower("Aliza", "twogirls@onecup", "qwerty"); //s
-	cout << "\n";
-	SocNetwork.CreateFollower("Yossi", "hedva@onecup", "qwerty"); //s
-	cout << "\n";
-	SocNetwork.CreateLeader("f1", "L@gmail", "1234"); //f
-	cout << "\n";
-	SocNetwork.CreateLeader("f1", "L2@gmail", "1234");  //s
-	cout << "\n";
 
-	SocNetwork.Login("sneeeeh", "werwe");   cout << "\n";   //  login wrong email
-	SocNetwork.Login("L2@gmail", "werwe");  cout << "\n";  //  leader login wrong password
-	SocNetwork.Login("L2@gmail", "1234");	cout << "\n"; // leader login correct password
-	 
-	SocNetwork.Login("sneeeehgg", "werwe");    cout << "\n";   //   login wrong email
-	SocNetwork.Login("hedva@onecup", "werer"); cout << "\n";  //  follower login wrong password
-	SocNetwork.Login("hedva@onecup", "qwerty"); cout << "\n";  //  follower login correct password
-	
+	/*
 	// testing for messages  $$$$$$$$$$$$$$$$$$$$$ need to add friend before
 
 	SocNetwork.AdminLogin("1234"); cout << "\n";
@@ -526,5 +537,6 @@ int main()
 	SocNetwork.Follow("L2@gmail");  cout << "\n";  // shoud fail - already follow this one
 
 	int num = 6;
+	*/
 	return 0;
 }

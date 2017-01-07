@@ -123,7 +123,7 @@ void list_f::delete_head() {
 }
 
 void list_f::release() {
-	while (h != 0)
+	while (h)
 		delete_head();
 }
 
