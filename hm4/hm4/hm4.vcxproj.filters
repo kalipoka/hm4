@@ -55,5 +55,6 @@
     <None Include="..\..\..\..\..\AppData\Local\Temp\Mxt94\tmp\dragdrop\change_extensions">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\..\..\..\..\AppData\Local\Temp\Mxt94\tmp\dragdrop\makefile" />
   </ItemGroup>
 </Project>
