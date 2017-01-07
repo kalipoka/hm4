@@ -33,7 +33,7 @@ public:
 	void SendFriendRequest(string friendEmail); //ofir - done and CHECKED
 	void AcceptFriendRequest(string friendEmail); //ofir - done and CHECKED
 	void RemoveFriend(string friendEmail); //ofir - done and CHECKED
-	void BroadcastMessage(string subject, string content); //ofir - done and CHECKED  - doesnt not send mesage to the 1st follower om list (last added)
+	void BroadcastMessage(string subject, string content); //ofir - done and CHECKED  
 	// this sections needs to add friends before debug
 	void ShowMessageList();                  // alex - done and CHECKED
 	void ReadMessage(int messageNum);		 // alex - done and CHECKED
