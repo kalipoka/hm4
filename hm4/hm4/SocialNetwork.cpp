@@ -52,7 +52,7 @@ void SocialNetwork::DeleteUser(string email)
 {
 	if (_is_admin == false)   //user email exists or not admin
 	{
-		cout << DELETE_USER_FAIL;
+		cout << DELETE_USER_FAIL << "\n";
 		return;
 	}
 	int id = user_identifier(email);
@@ -67,7 +67,7 @@ void SocialNetwork::DeleteUser(string email)
 	}
 
 	if (!DUser) {
-		cout << DELETE_USER_FAIL;
+		cout << DELETE_USER_FAIL << "\n";
 		return;
 	}
 	
@@ -103,7 +103,7 @@ void SocialNetwork::DeleteUser(string email)
 	else {
 		_delete_follower(email);
 	}
-	cout << DELETE_USER_SUCCESS;
+	cout << DELETE_USER_SUCCESS << "\n";
 }
 
 /*************************************
@@ -125,7 +125,7 @@ void SocialNetwork::AdminLogin(string password)
 	else
 	{
 		//admin login FAIL
-		cout << ADMIN_LOGIN_FAIL;
+		cout << ADMIN_LOGIN_FAIL << "\n";
 	}
 }
 
@@ -142,10 +142,10 @@ void SocialNetwork::Logout()
 		_Active_Follower = NULL;
 		_Active_Leader = NULL;
 		// marking the logout
-		cout << LOGOUT_SUCCESS;
+		cout << LOGOUT_SUCCESS << "\n";
 	}
 	else
-		cout << LOGOUT_FAIL;
+		cout << LOGOUT_FAIL << "\n";
 }
 
 /*************************************
@@ -158,14 +158,14 @@ void SocialNetwork::CreateFollower(string name, string email, string password)
 	int type = user_identifier(email);
 	if ( type != 0)   //user email exists
 	{
-		cout << CREATE_FOLLOWER_FAIL;
+		cout << CREATE_FOLLOWER_FAIL << "\n";
 	}
 	else  // user not exsits
 	{
 		Follower* new_follower;
 		new_follower = new Follower(name, email, password);
 		_Followers->prepend(*new_follower);
-		cout << CREATE_FOLLOWER_SUCCESS;
+		cout << CREATE_FOLLOWER_SUCCESS << "\n";
 	}
 }
 
@@ -179,14 +179,14 @@ void SocialNetwork::CreateLeader(string name, string email, string password)
 	int type = user_identifier(email);
 	if ( type!=0 || (_is_admin == false))   //user email exists or not admin
 	{
-		cout << CREATE_LEADER_FAIL;
+		cout << CREATE_LEADER_FAIL << "\n";
 	}
 	else  // user not exsits
 	{
 		Leader* new_leader;
 		new_leader = new Leader(name, email, password);
 		_Leaders->prepend(*new_leader);
-		cout << CREATE_LEADER_SUCCESS;
+		cout << CREATE_LEADER_SUCCESS << "\n";
 	}
 }
 
@@ -262,7 +262,7 @@ Follower* SocialNetwork::_FollowerByMail(string email)
 void SocialNetwork::BroadcastMessage(string subject, string content)
 {
 	if (!_is_leader || !_any_body_in) {
-		cout << BROADCAST_MESSAGE_FAIL;
+		cout << BROADCAST_MESSAGE_FAIL << "\n";
 		return;
 	}
 
@@ -270,7 +270,7 @@ void SocialNetwork::BroadcastMessage(string subject, string content)
 	newMessage = new Message(_Active_Leader->GetEmail(), subject, content);
 	_Messages->prepend(*newMessage); // A list for all the messages in the network so we can delete them and ensure no memory leak
 	_Active_Leader->BroadcastMessage(*newMessage);
-	cout << BROADCAST_MESSAGE_SUCCESS;
+	cout << BROADCAST_MESSAGE_SUCCESS << "\n";
 }
 /*************************************
 * This function shows the friend requests of the logged in user
@@ -281,7 +281,7 @@ void SocialNetwork::BroadcastMessage(string subject, string content)
 void SocialNetwork::ShowFriendRequests()
 {
 	if (!_any_body_in) {
-		cout << SHOW_FRIEND_REQUESTS_FAIL;
+		cout << SHOW_FRIEND_REQUESTS_FAIL << "\n";
 		return;
 	}
 	_Active_Follower->DisplayFriendRequests();
@@ -294,7 +294,7 @@ void SocialNetwork::ShowFriendRequests()
 void SocialNetwork::ShowFriendList()
 {
 	if (!_any_body_in) {
-		cout << SHOW_FRIEND_LIST_FAIL;
+		cout << SHOW_FRIEND_LIST_FAIL << "\n";
 		return;
 	}
 	_Active_Follower->DisplayFriendList();
@@ -309,7 +309,7 @@ void SocialNetwork::Login(string email, string password)
 {
 	int user_type = SocialNetwork::user_identifier(email);
 	if (user_type == 0) // user does not exist
-		cout << LOGIN_FAIL;  // user does not exist
+		cout << LOGIN_FAIL << "\n";  // user does not exist
 
 	if (user_type == 1)       // it is a leader, look in  and compare in leaders list
 	{
@@ -321,12 +321,12 @@ void SocialNetwork::Login(string email, string password)
 			_is_admin = false;
 			_Active_Follower = tmp;
 			_Active_Leader = tmp;
-			cout << LOGIN_SUCCESS;
+			cout << LOGIN_SUCCESS << "\n";
 			return;
 		}
 		else
 		{
-			cout << LOGIN_FAIL;
+			cout << LOGIN_FAIL << "\n";
 			return;
 		}
 			
@@ -341,11 +341,11 @@ void SocialNetwork::Login(string email, string password)
 			_is_leader = false;
 			_Active_Follower = tmp;
 			_Active_Leader = NULL;
-			cout << LOGIN_SUCCESS;
+			cout << LOGIN_SUCCESS << "\n";
 		}
 		else
 		{
-			cout << LOGIN_FAIL;
+			cout << LOGIN_FAIL << "\n";
 			return;
 		}
 	}
@@ -492,7 +492,7 @@ void SocialNetwork::ShowMessageList()
 {
 	if (!_any_body_in || _is_admin == true) // no one home or admin connected
 	{
-		cout << SHOW_MESSAGE_LIST_FAIL;
+		cout << SHOW_MESSAGE_LIST_FAIL << "\n";
 		return;
 	}
 		
@@ -509,11 +509,11 @@ void SocialNetwork::ShowMessageList()
 void SocialNetwork::ReadMessage(int messageNum)
 {
 	if (!_any_body_in) // no one home
-		cout << READ_MESSAGE_FAIL;
+		cout << READ_MESSAGE_FAIL << "\n";
 	else             // some one connected         
 	{	
 		if (_Active_Follower->ReadMessage(messageNum) == FAILURE ) // Maybe will need modifications to the def file
-			cout << READ_MESSAGE_FAIL;
+			cout << READ_MESSAGE_FAIL << "\n";
 	}
 }
 /*************************************
@@ -528,10 +528,10 @@ void SocialNetwork::SendMessage(string email, string subject, string content)
 		new_message = new Message(_Active_Follower->GetEmail(), subject, content);
 		_Messages->prepend(*new_message); // A list for all the messages in the network so we can delete them and ensure no memory leak
 		_FollowerByMail(email)->AddMessage(*new_message);
-		cout << SEND_MESSAGE_SUCCESS;
+		cout << SEND_MESSAGE_SUCCESS << "\n";
 	}
 	else
-		cout << SEND_MESSAGE_FAIL;
+		cout << SEND_MESSAGE_FAIL << "\n";
 } 
 /*************************************
 * Start following a Leader
@@ -543,7 +543,7 @@ void SocialNetwork::Follow(string leaderEmail)
 
 	if ((!_any_body_in) || (type!=1))
 	{
-		cout << FOLLOW_FAIL;
+		cout << FOLLOW_FAIL << "\n";
 		return;
 	}
 	Leader* the_leader = _find_leader(leaderEmail);
@@ -551,14 +551,14 @@ void SocialNetwork::Follow(string leaderEmail)
 	if (the_leader->isFollower(_Active_Follower->GetEmail()) )
 	{
 		//we get here of the follower already follows this leader
-		cout << FOLLOW_FAIL;
+		cout << FOLLOW_FAIL << "\n";
 		return;
 	}
 	//here we add the mew follower to the leader's list
 	else
 	{ 
 	the_leader->AddFollower(*_Active_Follower);
-	cout << FOLLOW_SUCCESS;
+	cout << FOLLOW_SUCCESS << "\n";
 	}
 }
 /*************************************
@@ -568,34 +568,43 @@ void SocialNetwork::Follow(string leaderEmail)
 void SocialNetwork::SendFriendRequest(string friendEmail)
 {
 	if (!_any_body_in) {
-		cout << SEND_FRIEND_REQUEST_FAIL;
+		cout << SEND_FRIEND_REQUEST_FAIL << "\n";
 		return;
 	}
 
 	if (!_Active_Follower->GetEmail().compare(friendEmail)){ //friend himself
-		cout << SEND_FRIEND_REQUEST_FAIL;
+		cout << SEND_FRIEND_REQUEST_FAIL << "\n";
 		return;
 	}
 
 	int user_id = user_identifier(friendEmail);
 
 	if (!user_id) { //user doesn't exist
-		cout << SEND_FRIEND_REQUEST_FAIL;
+		cout << SEND_FRIEND_REQUEST_FAIL << "\n";
 		return;
 	}
+	
+	Follower* temp = NULL;
 
-	Follower* temp = _find_follower(friendEmail);
+	if (user_id == 1) //leader
+	{
+		temp = _find_leader(friendEmail);
+	}
+	else {
+		temp = _find_follower(friendEmail);
+	}
+
 
 	if (temp->isFriend(_Active_Follower->GetEmail())) { //friend already exists - SHOULD BE ON THE SENDED mail
-		cout << SEND_FRIEND_REQUEST_FAIL;
+		cout << SEND_FRIEND_REQUEST_FAIL << "\n";
 		return;
 	}
 
 	if (temp->isRequestExists(_Active_Follower->GetEmail())) { //friend already exists - SHOULD BE ON THE SENDED mail
-		cout << SEND_FRIEND_REQUEST_FAIL;
+		cout << SEND_FRIEND_REQUEST_FAIL << "\n";
 		return;
 	}
-
+	cout << SEND_FRIEND_REQUEST_SUCCESS << "\n";
 	_FollowerByMail(friendEmail)->AddFriendRequest(*_Active_Follower); //send the friend request
 }
 /*************************************
@@ -605,22 +614,24 @@ void SocialNetwork::SendFriendRequest(string friendEmail)
 void SocialNetwork::AcceptFriendRequest(string friendEmail)
 {
 	if (!_any_body_in) {
-		cout << ACCEPT_FRIEND_REQUEST_FAIL;
+		cout << ACCEPT_FRIEND_REQUEST_FAIL << "\n";
 		return;
 	}
 
 	if (_Active_Follower->isRequestExists(friendEmail)) {
 		_Active_Follower->AcceptedFriendRequest(*_FollowerByMail(friendEmail));
-		if (_FollowerByMail(friendEmail)->isRequestExists(friendEmail)) 
+		if (!_FollowerByMail(friendEmail)->isRequestExists(friendEmail)) {
 			_FollowerByMail(friendEmail)->AddFriendRequest(*_Active_Follower); //add request before aproval on the accepted friend
-		_FollowerByMail(friendEmail)->AcceptedFriendRequest(*_Active_Follower); //add a friend to the list of the other person
-		cout << ACCEPT_FRIEND_REQUEST_SUCCESS;
+		}
+			_FollowerByMail(friendEmail)->AcceptedFriendRequest(*_Active_Follower); //add a friend to the list of the other person
+			cout << ACCEPT_FRIEND_REQUEST_SUCCESS << "\n";
 	}
 	else {
-		cout << ACCEPT_FRIEND_REQUEST_FAIL;
+		cout << ACCEPT_FRIEND_REQUEST_FAIL << "\n";
 	}
 	return;
 }
+
 /*************************************
 *Remove a friend from the list of friends
 *
@@ -628,26 +639,27 @@ void SocialNetwork::AcceptFriendRequest(string friendEmail)
 void SocialNetwork::RemoveFriend(string friendEmail)
 {
 	if (!_any_body_in) {
-		cout << REMOVE_FRIEND_FAIL;
+		cout << REMOVE_FRIEND_FAIL << "\n";
 		return;
 	}
 	if (_Active_Follower->isFriend(friendEmail)) {
 		_Active_Follower->RemoveFriend(*_FollowerByMail(friendEmail)); //remove the friend
 		_FollowerByMail(friendEmail)->RemoveFriend(*_Active_Follower);
-		cout << REMOVE_FRIEND_SUCCESS;
+		cout << REMOVE_FRIEND_SUCCESS << "\n";
 	}
 	else {
-		cout << REMOVE_FRIEND_FAIL;
+		cout << REMOVE_FRIEND_FAIL << "\n";
 	}
 }
 /*************************************
 *Exit and delete the social network;
 *
-**************************************/
+*************************************
 void SocialNetwork::Exit()
 {
 	SocialNetwork::~SocialNetwork();
 }
+*/
 
 // General actions
 /*************************************
@@ -687,7 +699,7 @@ void SocialNetwork::FindUser(string partialName)
 	}
 }
 
-
+/*
 //    @@@@@@@@@@@@@@@                DEBUUUUUUUUUUUUUUG             @@@@@@@@@@@@@@@@2
 int main()
 {
@@ -808,6 +820,7 @@ int main()
 	SocNetwork.Follow("L2@gmail");  cout << "\n";  // shoud fail - already follow this one
 
 	int num = 6;
-	*/
+	
 	return 0;
 }
+*/

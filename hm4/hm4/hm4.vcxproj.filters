@@ -30,6 +30,9 @@
     <ClCompile Include="SocialNetwork.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="defs.H">
@@ -53,6 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\AppData\Local\Temp\Mxt94\tmp\dragdrop\change_extensions">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="makefile">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
