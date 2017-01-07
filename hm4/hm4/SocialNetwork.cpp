@@ -4,7 +4,10 @@
 
 using std::cout;
 
-// creator 
+/*************************************
+* The creater of the Social Network 
+* 
+**************************************/
 SocialNetwork::SocialNetwork(string name, string password)
 {
 	_network_name = name;			// do we need to initialize now?
@@ -23,7 +26,10 @@ SocialNetwork::SocialNetwork(string name, string password)
 	_is_leader = false;
 }
 // destructor
-
+/*************************************
+* The destructor of the social network
+*
+**************************************/
 SocialNetwork::~SocialNetwork()
 {
 	_delete_All_followers();
@@ -37,7 +43,11 @@ SocialNetwork::~SocialNetwork()
 	delete _Messages;
 }
 
-
+/*************************************
+*
+*This function deletes  any user
+*
+**************************************/
 void SocialNetwork::DeleteUser(string email)
 {
 	if (_is_admin == false)   //user email exists or not admin
@@ -96,7 +106,9 @@ void SocialNetwork::DeleteUser(string email)
 	cout << DELETE_USER_SUCCESS;
 }
 
-// function for admin login
+/*************************************
+* Admin Login Function
+**************************************/
 void SocialNetwork::AdminLogin(string password)
 {
 	if (!_admin_password.compare(password))   // check the passwrod
@@ -117,7 +129,9 @@ void SocialNetwork::AdminLogin(string password)
 	}
 }
 
-// function to log out
+/*************************************
+*Logout Function
+**************************************/
 void SocialNetwork::Logout()
 {
 	if (_any_body_in == true)
@@ -134,7 +148,11 @@ void SocialNetwork::Logout()
 		cout << LOGOUT_FAIL;
 }
 
-// function adds follower to social network
+/*************************************
+* Function to Add follower to the social network
+*
+*
+**************************************/
 void SocialNetwork::CreateFollower(string name, string email, string password)
 {
 	int type = user_identifier(email);
@@ -151,7 +169,11 @@ void SocialNetwork::CreateFollower(string name, string email, string password)
 	}
 }
 
-// function adds leader to social network
+/*************************************
+* Functions add Leader to the social network
+*
+*
+**************************************/
 void SocialNetwork::CreateLeader(string name, string email, string password)
 {
 	int type = user_identifier(email);
@@ -168,10 +190,12 @@ void SocialNetwork::CreateLeader(string name, string email, string password)
 	}
 }
 
-//check if this email already exists in leaders or followers list
-// indicates if the leader is follower or leader
-// 1 for leader 2 for follower 0 for nothing
 
+/*************************************
+* This Function check if this email already exists in leaders or followers list
+* indicates if the leader is follower or leader
+* 1 for leader 2 for follower 0 for nothing
+**************************************/
 int SocialNetwork::user_identifier(string email)
 {
 	_Followers->go_to_first();
@@ -200,7 +224,10 @@ int SocialNetwork::user_identifier(string email)
 }
 
 
-// to find the follower my email - after debug version
+/*************************************
+*This function search for a user (Leader or follower) and retuns pointer to it
+
+**************************************/
 Follower* SocialNetwork::_FollowerByMail(string email)
 {
 	_Followers->go_to_first();
@@ -226,30 +253,11 @@ Follower* SocialNetwork::_FollowerByMail(string email)
 	}
 	return NULL;   // email does not exist
 }
-
-/*
-Follower* SocialNetwork::_FollowerByMail(string email)
-{
-	_Followers->go_to_first();
-	_Leaders->go_to_first();
-
-	Follower* indexF = _Followers->get_current();
-	Leader* indexL = _Leaders->get_current();
-	while (indexF || indexL)
-	{
-		if (indexF->GetEmail() == email)
-			return indexF;      // exists and it is a follower
-		if (indexL->GetEmail() == email)
-			return indexL;      // exists and it is a leader		
-
-		_Followers->next();
-		_Leaders->next();
-		indexF = _Followers->get_current();
-		indexL = _Leaders->get_current();
-	}
-	return NULL;   // email does not exist
-}
-*/
+/*************************************
+*This fucntion Broadcast a message to all the followers of that leader
+*
+*
+**************************************/
 
 void SocialNetwork::BroadcastMessage(string subject, string content)
 {
@@ -264,6 +272,11 @@ void SocialNetwork::BroadcastMessage(string subject, string content)
 	_Active_Leader->BroadcastMessage(*newMessage);
 	cout << BROADCAST_MESSAGE_SUCCESS;
 }
+/*************************************
+* This function shows the friend requests of the logged in user
+*
+*
+**************************************/
 
 void SocialNetwork::ShowFriendRequests()
 {
@@ -273,7 +286,11 @@ void SocialNetwork::ShowFriendRequests()
 	}
 	_Active_Follower->DisplayFriendRequests();
 }
-
+/*************************************
+*This function shows the friend lists a logged in user
+*
+*
+**************************************/
 void SocialNetwork::ShowFriendList()
 {
 	if (!_any_body_in) {
@@ -283,7 +300,11 @@ void SocialNetwork::ShowFriendList()
 	_Active_Follower->DisplayFriendList();
 	
 }
-
+/*************************************
+* Login function  for Leader or Follower
+*
+*
+**************************************/
 void SocialNetwork::Login(string email, string password)
 {
 	int user_type = SocialNetwork::user_identifier(email);
@@ -329,7 +350,11 @@ void SocialNetwork::Login(string email, string password)
 		}
 	}
 }
-
+/*************************************
+* This auxilary function returns a leader my email
+*
+*
+**************************************/
 Leader* SocialNetwork::_find_leader(string email)
 {
 	_Leaders->go_to_first();
@@ -343,7 +368,11 @@ Leader* SocialNetwork::_find_leader(string email)
 	}
 	return NULL;
 }
-
+/*************************************
+*This auxilary function return a folloer by email
+*
+*
+**************************************/
 Follower* SocialNetwork::_find_follower(string email)
 {
 	_Followers->go_to_first();
@@ -359,6 +388,11 @@ Follower* SocialNetwork::_find_follower(string email)
 	return NULL;
 }
 
+/*************************************
+* This function deletes a leader from the list of leaders
+*
+*
+**************************************/
 void SocialNetwork::_delete_leader(string email)
 {
 	_Leaders->go_to_first();
@@ -375,7 +409,11 @@ void SocialNetwork::_delete_leader(string email)
 	}
 	return;
 }
-
+/*************************************
+* This functions deletes follower from the followers list
+*
+*
+**************************************/
 void SocialNetwork::_delete_follower(string email)
 {
 	_Followers->go_to_first();
@@ -393,6 +431,11 @@ void SocialNetwork::_delete_follower(string email)
 	return;
 }
 
+/*************************************
+* Delete all leaders to free memory
+*
+*
+**************************************/
 void SocialNetwork::_delete_All_leaders()
 {
 	_Leaders->go_to_first();
@@ -406,6 +449,11 @@ void SocialNetwork::_delete_All_leaders()
 	return;
 }
 
+/*************************************
+* Deletes all followers to free memory
+*
+*
+**************************************/
 void SocialNetwork::_delete_All_followers()
 {
 	_Followers->go_to_first();
@@ -419,6 +467,11 @@ void SocialNetwork::_delete_All_followers()
 	return;
 }
 
+/*************************************
+* Delets all mesaages to free memory
+*
+*
+**************************************/
 void SocialNetwork::_delete_All_messages()
 {
 	_Messages->go_to_first();
@@ -431,7 +484,10 @@ void SocialNetwork::_delete_All_messages()
 	}
 	return;
 }
-
+/*************************************
+* Shows The messages list of a logged in user
+*
+**************************************/
 void SocialNetwork::ShowMessageList()
 {
 	if (!_any_body_in || _is_admin == true) // no one home or admin connected
@@ -445,9 +501,11 @@ void SocialNetwork::ShowMessageList()
 		_Active_Follower->ShowMessageList();       // Maybe will need modifications to the def file
 		return;
 	}
-
 }
-
+/*************************************
+* Reads a specific number of a messages in the users Messagebox
+*
+**************************************/
 void SocialNetwork::ReadMessage(int messageNum)
 {
 	if (!_any_body_in) // no one home
@@ -458,7 +516,10 @@ void SocialNetwork::ReadMessage(int messageNum)
 			cout << READ_MESSAGE_FAIL;
 	}
 }
-
+/*************************************
+* Send a message to a friend
+*
+**************************************/
 void SocialNetwork::SendMessage(string email, string subject, string content)
 {
 	if ((_any_body_in) && _Active_Follower->isFriend(email))
@@ -472,7 +533,10 @@ void SocialNetwork::SendMessage(string email, string subject, string content)
 	else
 		cout << SEND_MESSAGE_FAIL;
 } 
-
+/*************************************
+* Start following a Leader
+*
+**************************************/
 void SocialNetwork::Follow(string leaderEmail)
 {
 	int type = user_identifier(leaderEmail);
@@ -497,7 +561,10 @@ void SocialNetwork::Follow(string leaderEmail)
 	cout << FOLLOW_SUCCESS;
 	}
 }
-
+/*************************************
+* Send a friend request to another user
+*
+**************************************/
 void SocialNetwork::SendFriendRequest(string friendEmail)
 {
 	if (!_any_body_in) {
@@ -531,7 +598,10 @@ void SocialNetwork::SendFriendRequest(string friendEmail)
 
 	_FollowerByMail(friendEmail)->AddFriendRequest(*_Active_Follower); //send the friend request
 }
-
+/*************************************
+*Accept a friend request from another user and add user the the friends list
+*
+**************************************/
 void SocialNetwork::AcceptFriendRequest(string friendEmail)
 {
 	if (!_any_body_in) {
@@ -551,7 +621,10 @@ void SocialNetwork::AcceptFriendRequest(string friendEmail)
 	}
 	return;
 }
-
+/*************************************
+*Remove a friend from the list of friends
+*
+**************************************/
 void SocialNetwork::RemoveFriend(string friendEmail)
 {
 	if (!_any_body_in) {
@@ -567,38 +640,53 @@ void SocialNetwork::RemoveFriend(string friendEmail)
 		cout << REMOVE_FRIEND_FAIL;
 	}
 }
-
+/*************************************
+*Exit and delete the social network;
+*
+**************************************/
 void SocialNetwork::Exit()
 {
 	SocialNetwork::~SocialNetwork();
 }
 
 // General actions
-/*
+/*************************************
+* Find a user (Follower of Leader) in the lists of the 
+* Social network which's name contains the desired string
+*
+**************************************/
 void SocialNetwork::FindUser(string partialName)
 {
-cout << "Followers:" << endl;
-// Loop over all followers in network
-for (int i = 0; ???????????????; ++i)
-{
-???????????????
-if (curFollower->GetName().find(partialName) != string::npos)
-cout << i + 1 << ") " << curFollower->GetName() << ": " << curFollower->GetEmail() << endl;
-???????????????
+	_Followers->go_to_first();
+	_Leaders->go_to_first();
+	Follower* indexF = _Followers->get_current();
+	Leader* indexL = _Leaders->get_current();
+	int i = 0;
+
+	cout << "Followers:" << endl;
+	while (indexF)
+	{
+		if (indexF->GetName().find(partialName) != string::npos)
+			cout << i + 1 << ") " << indexF->GetName() << ": " << indexF->GetEmail() << endl;
+
+		_Followers->next();
+		indexF = _Followers->get_current();
+		i++;
+	}
+
+	i = 0;
+	cout << "Leaders:" << endl;
+	while (indexL)
+	{
+		if (indexL->GetName().find(partialName) != string::npos)
+			cout << i + 1 << ") " << indexL->GetName() << ": " << indexL->GetEmail() << endl;
+
+		_Leaders->next();
+		indexL = _Leaders->get_current();
+		i++;
+	}
 }
 
-cout << "Leaders:" << endl;
-// Loop over all leaders in network
-for (int i = 0; ???????????????; ++i)
-{
-???????????????
-if (curLeader->GetName().find(partialName) != string::npos)
-cout << i + 1 << ") " << curLeader->GetName() << ": " << curLeader->GetEmail() << endl;
-???????????????
-}
-}
-
-*/
 
 //    @@@@@@@@@@@@@@@                DEBUUUUUUUUUUUUUUG             @@@@@@@@@@@@@@@@2
 int main()
@@ -617,7 +705,7 @@ int main()
 	cout << "\n";
 	SocNetwork.CreateLeader("L2", "l2@", "1234");  //s
 	cout << "\n";
-	SocNetwork.CreateLeader("L3", "l3@", "1234");  //s
+	SocNetwork.CreateLeader("Zen", "l3@", "1234");  //s
 	cout << "\n";
 	SocNetwork.CreateFollower("Zenzor1", "f1@", "1234"); //s
 	cout << "\n";
@@ -625,10 +713,14 @@ int main()
 	cout << "\n";
 	SocNetwork.CreateFollower("Zenzor3", "f3@", "1234"); //s
 	cout << "\n";
-	SocNetwork.CreateFollower("Zenzor4", "f4@", "1234"); //s
+	SocNetwork.CreateFollower("Zinzana4", "f4@", "1234"); //s
 	cout << "\n";
 
-
+	SocNetwork.FindUser("ZIMBABUA");  //nothing to print
+	SocNetwork.FindUser("Zen");		//needs to print 3 followers and 1 leader
+	SocNetwork.FindUser("L");
+	SocNetwork.FindUser("L");
+	/*
 	SocNetwork.Login("l1@", "1234");	cout << "\n"; // f1
 	SocNetwork.SendFriendRequest("f4@");
 	SocNetwork.Follow("l3@");
@@ -669,7 +761,7 @@ int main()
 	SocNetwork.Follow("l3@"); cout << "\n";
 	*/
 
-
+	/*
 	 //Accept friend request - send message
 	SocNetwork.Login("f4@", "1234");cout << "\n";
 	SocNetwork.AcceptFriendRequest("f3@"); cout << "\n";
@@ -680,7 +772,7 @@ int main()
 	SocNetwork.ShowMessageList();cout << "\n";
 	SocNetwork.ReadMessage(1); cout << "\n";
 	SocNetwork.ShowMessageList();cout << "\n";
-	
+	*/
 
 	/*
 	//needed tests:

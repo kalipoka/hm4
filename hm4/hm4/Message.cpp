@@ -1,15 +1,25 @@
 #include <iostream>
 #include "Message.H"
 
-
+/*************************************
+* The Constructor of the Message
+*
+**************************************/
 Message::Message(string source, string subject, string content) : source_(source), subject_(subject), content_(content), read_(false) {}
 
+/*************************************
+* Displays othe Message
+*
+**************************************/
 void Message::Display(int num) const
 {
 	cout << num << ") "<< (read_ ? "" : "(Unread) ") << "From: " << source_ << endl;
 	cout << "Subject: " << subject_ << endl;
 }
-
+/*************************************
+* Reads the Message
+*
+**************************************/
 void Message::Read()
 {
     read_ = true;
@@ -17,15 +27,30 @@ void Message::Read()
 	cout << "Subject: " << subject_ << endl;
 	cout << "Content: " << content_ << endl;
 }
-
+/*************************************
+* Bool - cheks if the message is read
+*
+**************************************/
 bool Message::isRead()
 {
 	return read_;
 }
 
+/*******************************************************
+*The message box class - contains message and some very cool operations
+*
+*********************************************************/
+
+/*************************************
+*The constructor of the Message box
+*
+**************************************/
 MessageBox::MessageBox(Node_m* h=NULL, Node_m* iterator=NULL, int size=0) :list_m() {}
 
-// prints all the message - Takzir
+/*************************************
+* Prints all the messages in the box
+*
+**************************************/
 void MessageBox::Print()
 {
 	Message* tmp;
@@ -43,7 +68,10 @@ void MessageBox::Print()
 	}
 }
 
-// this function Gives the  ammount of unreaded messages
+/*************************************
+*This function Gives the  ammount of unreaded messages
+*
+**************************************/
 int MessageBox::UnreadSize()
 {
 	Message* tmp;
@@ -64,8 +92,11 @@ int MessageBox::UnreadSize()
 	return mone;
 }
 
-// this function Reads a specific Message
 
+/*************************************
+*this function Reads a specific Message
+*
+**************************************/
 Result MessageBox::ReadMessage(int messageNum) 
 {
 	int size = MessageBox::get_size();
@@ -92,13 +123,6 @@ Result MessageBox::ReadMessage(int messageNum)
 	return FAILURE;
 }
 
-
-/*
-void MessageBox::Add(Message m)
-{
-	MessageBox::prepend(m);
-}
-*/
 
 /*
 int main() {

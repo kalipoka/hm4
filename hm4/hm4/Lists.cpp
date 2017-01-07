@@ -6,16 +6,27 @@ using std::cout;
 
 /*LIST FOR MESSAGES*/
 
+/*************************************
+* The Constructor of the list
+*
+**************************************/
 list_m::list_m() {
 	h = NULL;
 	iterator = NULL;
 	size = 0;
 }
 
+/*************************************
+* The Destructor of the list
+*
+**************************************/
 list_m::~list_m() {
 	release();
 }
-
+/*************************************
+* Prepend Function - Adds item to the head of the list
+*
+**************************************/
 void list_m::prepend(Message& m) {
 	Node_m* temp = new Node_m; // allocation
 	temp->next = h;
@@ -23,8 +34,11 @@ void list_m::prepend(Message& m) {
 	h = temp;
 	list_m::size = list_m::size++;
 }
-/* this function works for int - need special modifications for other types*/
 
+/*************************************
+* 
+*This function prints the content of the list
+**************************************/
 void list_m::print() const {
 	Node_m* temp = h;
 	while (temp != 0) {
@@ -32,7 +46,11 @@ void list_m::print() const {
 		temp = temp->next;
 	}
 }
- 
+
+/*************************************
+*This function delete the head of the list
+*
+**************************************/
 void list_m::delete_head() {
 	Node_m* temp = h;
 	h = h->next;
@@ -41,27 +59,51 @@ void list_m::delete_head() {
 	delete temp;                   //free memory
 }
 
+/*************************************
+*This function delete whole list
+*
+**************************************/
+
 void list_m::release() {
 	while (h)
 		delete_head();
 }
 
+/*************************************
+*This function puts the iterator on the head of the list
+*
+**************************************/
 void list_m::go_to_first() {
 	list_m::iterator = list_m::h;
 }
 
+/*************************************
+*This function advances the iterator one step forward
+*
+**************************************/
 void list_m::next() {
 	list_m::iterator = list_m::iterator->next;
 }
 
+/*************************************
+*This function gives us the element that the iterator points to
+*
+**************************************/
 Message* list_m::get_current() {
 	if (!list_m::iterator) return NULL;
 	return list_m::iterator->data;
 }
-
+/*************************************
+*This function gives us the size of the list
+*
+**************************************/
 int list_m::get_size() {                          
 	return list_m::size;
 }
+/*************************************
+*This function deletes the current element
+*
+**************************************/
 
 void list_m::delete_current() {
 
@@ -85,8 +127,10 @@ void list_m::delete_current() {
 		list_m::iterator = temp->next;
 	}
 }
-
-/*LIST FOR FOLLOWERS*/
+/***********************************************************************
+* LIST FOR FOLLOWERS begins here - descriptions are the same!!!
+*
+*************************************************************************/
 list_f::list_f() {
 	h = NULL;
 	iterator = NULL;
@@ -105,7 +149,6 @@ void list_f::prepend(Follower& f) {
 	h = temp;
 	list_f::size = list_f::size++;
 }
-/* this function works for int - need special modifications for other types*/
 
 void list_f::print() const {
 	Node_f* temp = h;
@@ -168,7 +211,10 @@ void list_f::delete_current() {
 }
 
 
-/*LIST FOR LEADERS*/
+/***********************************************************************
+* LIST FOR LEADER begins here - descriptions are the same as for the first list!!!
+*
+*************************************************************************/
 
 list_l::list_l() {
 	h = NULL;
@@ -187,7 +233,6 @@ void list_l::prepend(Leader& f) {
 	h = temp;
 	list_l::size = list_l::size++;
 }
-/* this function works for int - need special modifications for other types*/
 
 void list_l::print() const {
 	Node_l* temp = h;
@@ -284,10 +329,6 @@ int main() {
 		//cout << "deleted\n";
 		//w.release();
 		//w.print();
-		
-		
-
-
 	return 0;
 }
 

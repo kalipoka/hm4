@@ -1,25 +1,42 @@
 #include<iostream>
 #include "Leader.H"
-
+/*************************************
+* Constructor of the leader 
+*Leader inherits from Follower
+**************************************/
 Leader::Leader(string name, string email, string password) :Follower(name, email, password) {
 	_Followers = new list_f;
 }
-
+/*************************************
+* Destructor of the leader
+*
+**************************************/
 Leader::~Leader()
 {
 	_Followers->release();
 	delete _Followers;
 }
-
+/*************************************
+* This function adds a follower to the leaders 
+* followers list
+**************************************/
 void Leader::AddFollower(Follower& Friend)
 {
 	_Followers->prepend(Friend);
 }
+/*************************************
+* Ruturns the number of the follower of the leader
+*
+**************************************/
 int Leader::CountFollowers()
 {
 	return _Followers->get_size();
 }
 
+/*************************************
+* Removes a follower from the followers list
+*
+**************************************/
 void Leader::RemoveFollower(Follower& Friend)
 {
 	//find the friend requests in list	
@@ -40,6 +57,10 @@ void Leader::RemoveFollower(Follower& Friend)
 	}
 }
 
+/*************************************
+* Sends a message to all the followers of the leader
+*
+**************************************/
 void Leader::BroadcastMessage(Message& TheMessage)
 {
 	//find the friend requests in list	
@@ -54,6 +75,10 @@ void Leader::BroadcastMessage(Message& TheMessage)
 	}
 }
 
+/*************************************
+* checks if this email belongs to a follower
+*
+**************************************/
 bool Leader::isFollower(string mail)
 {
 	_Followers->go_to_first();

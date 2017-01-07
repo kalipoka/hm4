@@ -2,7 +2,10 @@
 #include "Follower.H"
 
 using std::cout;
-
+/*************************************
+* Constructor of the follower
+*
+**************************************/
 Follower::Follower(string name, string email, string password)
 {
 	_name = name;
@@ -12,7 +15,10 @@ Follower::Follower(string name, string email, string password)
 	_Friends = new list_f;
 	_FRequests = new list_f;
 }
-
+/*************************************
+* Destructor of the follower
+*
+**************************************/
 Follower::~Follower()
 {
 	_MessageBox->release();
@@ -22,10 +28,22 @@ Follower::~Follower()
 	delete _Friends;
 	delete _FRequests;
 }
-
+/*************************************
+* This function return the name of the follower
+*
+**************************************/
 string Follower::GetName() { return _name; }
+
+/*************************************
+*This function return the  email of the follower
+*
+**************************************/
 string Follower::GetEmail() { return _email; }
 
+/*************************************
+*Check if the input password is like the real password
+*of the user
+**************************************/
 bool Follower::isPassword(string password)
 {
 	if (password.compare(_password))
@@ -33,7 +51,10 @@ bool Follower::isPassword(string password)
 	else
 		return true;
 }
-
+/*************************************
+*Displays the friend requests of the follower
+*
+**************************************/
 void Follower::DisplayFriendRequests()
 {
 	_FRequests->go_to_first();
@@ -47,7 +68,10 @@ void Follower::DisplayFriendRequests()
 		index = _FRequests->get_current();
 	}
 }
-
+/*************************************
+*Displays the frined list of the follower
+*
+**************************************/
 void Follower::DisplayFriendList()
 {
 	_Friends->go_to_first();
@@ -62,11 +86,18 @@ void Follower::DisplayFriendList()
 	}
 }
 
+/*************************************
+*Add a friend request to the follower
+*
+**************************************/
 void Follower::AddFriendRequest(Follower& Friend)
 {
 	_FRequests->prepend(Friend);
 }
-
+/*************************************
+* Accepts a friend request
+*
+**************************************/
 void Follower::AcceptedFriendRequest(Follower& Friend)
 {
 	//find the friend requests in list	
@@ -87,7 +118,10 @@ void Follower::AcceptedFriendRequest(Follower& Friend)
 		index = _FRequests->get_current();
 	}
 }
-
+/*************************************
+* Remove a friend from the friend list of the follower
+*
+**************************************/
 void Follower::RemoveFriend(Follower& Friend)
 {
 	//find the friend requests in list	
@@ -107,40 +141,62 @@ void Follower::RemoveFriend(Follower& Friend)
 		index = _Friends->get_current();
 	}
 }
-
+/*************************************
+*Removes a friend from the friend list of the follower
+*
+**************************************/
 int Follower::NumFriendRequests() const
 {
 	return _FRequests->get_size();
 }
-
+/*************************************
+*Shows the message list of the follower
+*
+**************************************/
 void Follower::ShowMessageList() const
 {
 	_MessageBox->Print();
 }
-
+/*************************************
+*Add a message to the messgae box of the follower
+*
+**************************************/
 void Follower::AddMessage(Message& newMessage)
 {
 	_MessageBox->prepend(newMessage);
 }
-
-Result Follower::ReadMessage(int MessageNum) const//<messageNumber>
+/*************************************
+* Reads a message of the follower (if succeeds)
+*
+**************************************/Result Follower::ReadMessage(int MessageNum) const//<messageNumber>
 {
 	if (_MessageBox->ReadMessage(MessageNum) == SUCCESS)
 		return SUCCESS;
 	else
 		return FAILURE;     //if message number is too big
 }
-
+/*************************************
+* Adds a message to a friend who is on the list
+*
+**************************************/
 void Follower::SendMessage(Message& TheMessage, Follower& Friend)
 {
 	Friend.AddMessage(TheMessage);
 }
- 
+/*************************************
+* Return the number of the unread messages
+*
+**************************************/
 int Follower::NumUnreadMessages() const
 {
 	return _MessageBox->UnreadSize();
 }
 
+/*************************************
+* Auxilary function
+* Determines us if a certain email belongs to 
+* someone on the friendlist
+**************************************/
 bool Follower::isFriend(string mail)
 {
 	_Friends->go_to_first();
@@ -155,7 +211,11 @@ bool Follower::isFriend(string mail)
 	}
 	return false;
 }
-
+/*************************************
+* Auxilaty function
+* Determins wether a friends request exists
+*
+**************************************/
 bool Follower::isRequestExists(string mail)
 {
 	_FRequests->go_to_first();
