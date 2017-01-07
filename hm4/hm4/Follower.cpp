@@ -62,7 +62,7 @@ void Follower::DisplayFriendRequests()
 	int i = 0;
 	while (index)
 	{
-		cout << SHOW_FRIEND_REQUESTS_SUCCESS;
+		cout << SHOW_FRIEND_REQUESTS_SUCCESS << "\n";
 		i++;
 		_FRequests->next();
 		index = _FRequests->get_current();
@@ -79,7 +79,7 @@ void Follower::DisplayFriendList()
 	int i = 0;
 	while (index)
 	{
-		cout << SHOW_FRIEND_LIST_SUCCESS;
+		cout << SHOW_FRIEND_LIST_SUCCESS << "\n";
 		i++;
 		_Friends->next();
 		index = _Friends->get_current();
