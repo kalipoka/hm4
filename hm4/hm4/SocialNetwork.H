@@ -33,16 +33,17 @@ public:
 	void SendFriendRequest(string friendEmail); //ofir - done and CHECKED
 	void AcceptFriendRequest(string friendEmail); //ofir - done and CHECKED
 	void RemoveFriend(string friendEmail); //ofir - done and CHECKED
-	void BroadcastMessage(string subject, string content); //ofir - done and CHECKED
+	void BroadcastMessage(string subject, string content); //ofir - done and CHECKED  - doesnt not send mesage to the 1st follower om list (last added)
 	// this sections needs to add friends before debug
-	void ShowMessageList();                  // alex - done - await upper debug
-	void ReadMessage(int messageNum);		 // alex - done - await upper debug
-	void SendMessage(string email, string subject, string content); // alex - await upper debug
+	void ShowMessageList();                  // alex - done and CHECKED
+	void ReadMessage(int messageNum);		 // alex - done and CHECKED
+	void SendMessage(string email, string subject, string content); // alex - done and CHECKED
 
 	void Follow(string leaderEmail);       // alex - done and CHECKED 
 
 	// General actions
 	void FindUser(string partialName);
+	void Exit();
 
 private:
 	// To do

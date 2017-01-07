@@ -327,7 +327,7 @@ void SocialNetwork::SendMessage(string email, string subject, string content)
 	if ((_any_body_in) && _Active_Follower->isFriend(email))
 	{
 		Message* new_message;
-		new_message = new Message(email, subject, content);
+		new_message = new Message(_Active_Follower->GetEmail(), subject, content);
 		_FollowerByMail(email)->AddMessage(*new_message);
 		cout << SEND_MESSAGE_SUCCESS;
 	}
@@ -427,6 +427,11 @@ void SocialNetwork::RemoveFriend(string friendEmail)
 	}
 }
 
+void SocialNetwork::Exit()
+{
+	SocialNetwork::~SocialNetwork();
+}
+
 // General actions
 /*
 void SocialNetwork::FindUser(string partialName)
@@ -460,13 +465,13 @@ int main()
 	Message msg2("eli", "yossi", "chupar me la");
 	Message msg3("Sneh", "Shussman", "fuck me");
 
-		SocialNetwork SocNetwork("MamatNet", "1234");
+	SocialNetwork SocNetwork("MamatNet", "1234");
 	// login test
 	SocNetwork.AdminLogin("bulbul");
 	cout << "\n";
 	SocNetwork.AdminLogin("1234");
 
-	
+	// create users and followers
 	SocNetwork.CreateLeader("L1", "l1@", "1234");   //s
 	cout << "\n";
 	SocNetwork.CreateLeader("L2", "l2@", "1234");  //s
@@ -491,15 +496,43 @@ int main()
 	SocNetwork.Follow("l3@");
 	SocNetwork.Login("f3@", "1234");	cout << "\n"; // leader login correct password
 	SocNetwork.SendFriendRequest("f4@");
-	SocNetwork.Follow("l3@");
-	
+	SocNetwork.Follow("l3@"); cout << "\n";
+	SocNetwork.Login("f4@", "1234");cout << "\n";
+	SocNetwork.Follow("l3@"); cout << "\n";
+
+
+
+	/* Accept friend request - send message
+	SocNetwork.Login("f4@", "1234");cout << "\n";
+	SocNetwork.AcceptFriendRequest("f3@"); cout << "\n";
+	SocNetwork.SendMessage("f0@", "Hi_Nigger", "You are a nigger"); cout << "\n";  //wrong email
+	SocNetwork.SendMessage("f3@", "Hi_Nigger", "You are a nigger"); cout << "\n"; //correct email
+	// check if we received the message - then read and display the images
+	SocNetwork.Login("f3@", "1234");cout << "\n";
+	SocNetwork.ShowMessageList();cout << "\n";
+	SocNetwork.ReadMessage(1); cout << "\n";       
+	SocNetwork.ShowMessageList();cout << "\n";
+	*/
+
+	// Broadcast
 	SocNetwork.Login("l3@", "1234"); cout << "\n";
-	SocNetwork.BroadcastMessage("A message", "From the prime leader");
+	SocNetwork.BroadcastMessage("A message", "From the prime leader");  cout << "\n";
+	SocNetwork.BroadcastMessage("A message 2", "From the prime leader");  cout << "\n";
 
-	SocNetwork.Login("f3@", "1234");
-	SocNetwork.ShowMessageList();
-
-
+	SocNetwork.Login("f3@", "1234");cout << "\n";
+	SocNetwork.Login("f2@", "1234");cout << "\n";
+	SocNetwork.Login("f3@", "1234");cout << "\n";
+	SocNetwork.Login("f4@", "1234");cout << "\n";
+	SocNetwork.ShowMessageList();cout << "\n";
+	SocNetwork.Login("f3@", "1234");cout << "\n";
+	/*   TEST FOR Show and Read Message - OK
+	SocNetwork.ShowMessageList();cout << "\n";
+	SocNetwork.ReadMessage(0); cout << "\n";        //should fail
+	SocNetwork.ReadMessage(1); cout << "\n";        //should succes
+	SocNetwork.ReadMessage(2); cout << "\n";        //should succes
+	SocNetwork.ShowMessageList();cout << "\n";
+	*/
+	
 
 	//SocNetwork.BroadcastMessage("A message", "From the prime leader");	cout << "\n";
 
