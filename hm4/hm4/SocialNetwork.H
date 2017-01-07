@@ -24,8 +24,7 @@ public:
 
 	// Leader actions	
 	
-
-	// Follower actions (also leader actions)
+		// Follower actions (also leader actions)
 	void CreateFollower(string name, string email, string password);  //alex - done and CHECKED 
 
 	void ShowFriendRequests(); //ofir - done and CHECKED
@@ -43,6 +42,8 @@ public:
 
 	// General actions
 	void FindUser(string partialName);
+	
+	
 
 private:
 	// To do
@@ -53,6 +54,7 @@ private:
 	// users lists
 	list_f *_Followers;
 	list_l *_Leaders;
+	list_m *_Messages;
 
 	// network indications  - maybe need more...
 	Follower *_Active_Follower; // maybe can use inheritance?
@@ -67,6 +69,12 @@ private:
 	// 0: not exists , 1:leader, 2: follower
 	int user_identifier(string email);  //                             alex - done and CHECKED
 	Follower* _FollowerByMail(string email);
+
+	void _delete_All_leaders();
+	void _delete_All_followers();
+	void _delete_All_messages();
+	void _delete_follower(string email);
+	void _delete_leader(string email);
 };
 
 #endif

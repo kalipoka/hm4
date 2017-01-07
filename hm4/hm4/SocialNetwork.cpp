@@ -12,6 +12,7 @@ SocialNetwork::SocialNetwork(string name, string password)
 
 	_Followers = new list_f;
 	_Leaders = new list_l;
+	_Messages = new list_m;
 
 	_Active_Follower = NULL; // maybe can use inheritance?
 	_Active_Leader = NULL;
@@ -23,15 +24,77 @@ SocialNetwork::SocialNetwork(string name, string password)
 }
 // destructor
 
-
 SocialNetwork::~SocialNetwork()
 {
+	_delete_All_followers();
+	_delete_All_leaders();
+	_delete_All_messages();
 	_Followers->release();
 	delete _Followers;
 	_Leaders->release();
 	delete _Leaders;
+	_Messages->release();
+	delete _Messages;
 }
 
+
+void SocialNetwork::DeleteUser(string email)
+{
+	if (_is_admin == false)   //user email exists or not admin
+	{
+		cout << DELETE_USER_FAIL;
+		return;
+	}
+	int id = user_identifier(email);
+	Follower* DUser = NULL;
+
+	if (id == 1) //leader
+	{
+		DUser = _find_leader(email);
+	}
+	else {
+		DUser = _find_follower(email);
+	}
+
+	if (!DUser) {
+		cout << DELETE_USER_FAIL;
+		return;
+	}
+	
+	_Followers->go_to_first();
+	Follower* indexF = _Followers->get_current();
+	while (indexF)
+	{
+		indexF->AcceptedFriendRequest(*DUser); //Approve all requests from the specific friend
+		indexF->RemoveFriend(*DUser); //Remove the friendships
+		_Followers->next();
+		indexF = _Followers->get_current();
+	}
+
+	_Leaders->go_to_first();
+	Leader* indexL = _Leaders->get_current();
+	while (indexL)
+	{
+		indexL->AcceptedFriendRequest(*DUser); //Approve all requests from the specific friend
+		indexL->RemoveFriend(*DUser); //Remove the friendships
+		indexL->RemoveFollower(*DUser);
+		_Leaders->next();
+		indexL = _Leaders->get_current();
+	}
+
+	// remove user from general leader or followers list
+
+	
+
+	if (id == 1) //leader
+	{
+		_delete_leader(email);
+	}
+	else {
+		_delete_follower(email);
+	}
+	cout << DELETE_USER_SUCCESS;
+}
 
 // function for admin login
 void SocialNetwork::AdminLogin(string password)
@@ -195,8 +258,9 @@ void SocialNetwork::BroadcastMessage(string subject, string content)
 		return;
 	}
 
-	Message* newMessage; // we might want to append to list of all messages and release on exit ###################
+	Message* newMessage; 
 	newMessage = new Message(_Active_Leader->GetEmail(), subject, content);
+	_Messages->prepend(*newMessage); // A list for all the messages in the network so we can delete them and ensure no memory leak
 	_Active_Leader->BroadcastMessage(*newMessage);
 	cout << BROADCAST_MESSAGE_SUCCESS;
 }
@@ -295,6 +359,79 @@ Follower* SocialNetwork::_find_follower(string email)
 	return NULL;
 }
 
+void SocialNetwork::_delete_leader(string email)
+{
+	_Leaders->go_to_first();
+	Leader* index = _Leaders->get_current();
+	while (index)
+	{
+		if (index->GetEmail() == email) {
+			delete index;
+			_Leaders->delete_current();
+			return;
+		}
+		_Leaders->next();
+		index = _Leaders->get_current();
+	}
+	return;
+}
+
+void SocialNetwork::_delete_follower(string email)
+{
+	_Followers->go_to_first();
+	Follower* index = _Followers->get_current();
+	while (index)
+	{
+		if (index->GetEmail() == email) {
+			delete index;
+			_Followers->delete_current();
+			return;
+		}
+		_Followers->next();
+		index = _Followers->get_current();
+	}
+	return;
+}
+
+void SocialNetwork::_delete_All_leaders()
+{
+	_Leaders->go_to_first();
+	Leader* index = _Leaders->get_current();
+	while (index)
+	{
+		delete index;
+		_Leaders->next();
+		index = _Leaders->get_current();
+	}
+	return;
+}
+
+void SocialNetwork::_delete_All_followers()
+{
+	_Followers->go_to_first();
+	Follower* index = _Followers->get_current();
+	while (index)
+	{
+		delete index;
+		_Followers->next();
+		index = _Followers->get_current();
+	}
+	return;
+}
+
+void SocialNetwork::_delete_All_messages()
+{
+	_Messages->go_to_first();
+	Message* index = _Messages->get_current();
+	while (index)
+	{
+		delete index;
+		_Messages->next();
+		index = _Messages->get_current();
+	}
+	return;
+}
+
 void SocialNetwork::ShowMessageList()
 {
 	if (!_any_body_in || _is_admin == true) // no one home or admin connected
@@ -328,6 +465,7 @@ void SocialNetwork::SendMessage(string email, string subject, string content)
 	{
 		Message* new_message;
 		new_message = new Message(email, subject, content);
+		_Messages->prepend(*new_message); // A list for all the messages in the network so we can delete them and ensure no memory leak
 		_FollowerByMail(email)->AddMessage(*new_message);
 		cout << SEND_MESSAGE_SUCCESS;
 	}
@@ -392,7 +530,6 @@ void SocialNetwork::SendFriendRequest(string friendEmail)
 	}
 
 	_FollowerByMail(friendEmail)->AddFriendRequest(*_Active_Follower); //send the friend request
-
 }
 
 void SocialNetwork::AcceptFriendRequest(string friendEmail)
@@ -403,7 +540,10 @@ void SocialNetwork::AcceptFriendRequest(string friendEmail)
 	}
 
 	if (_Active_Follower->isRequestExists(friendEmail)) {
-		_Active_Follower->AcceptedFriendRequest(*_FollowerByMail(friendEmail)); //add the follower
+		_Active_Follower->AcceptedFriendRequest(*_FollowerByMail(friendEmail));
+		if (_FollowerByMail(friendEmail)->isRequestExists(friendEmail)) 
+			_FollowerByMail(friendEmail)->AddFriendRequest(*_Active_Follower); //add request before aproval on the accepted friend
+		_FollowerByMail(friendEmail)->AcceptedFriendRequest(*_Active_Follower); //add a friend to the list of the other person
 		cout << ACCEPT_FRIEND_REQUEST_SUCCESS;
 	}
 	else {
@@ -420,12 +560,14 @@ void SocialNetwork::RemoveFriend(string friendEmail)
 	}
 	if (_Active_Follower->isFriend(friendEmail)) {
 		_Active_Follower->RemoveFriend(*_FollowerByMail(friendEmail)); //remove the friend
+		_FollowerByMail(friendEmail)->RemoveFriend(*_Active_Follower);
 		cout << REMOVE_FRIEND_SUCCESS;
 	}
 	else {
 		cout << REMOVE_FRIEND_FAIL;
 	}
 }
+
 
 // General actions
 /*
@@ -453,14 +595,14 @@ cout << i + 1 << ") " << curLeader->GetName() << ": " << curLeader->GetEmail() <
 }
 
 */
+
 //    @@@@@@@@@@@@@@@                DEBUUUUUUUUUUUUUUG             @@@@@@@@@@@@@@@@2
 int main()
 {
 	Message msg1("alibaba", "shodedim", "tellmestory");
 	Message msg2("eli", "yossi", "chupar me la");
 	Message msg3("Sneh", "Shussman", "fuck me");
-
-		SocialNetwork SocNetwork("MamatNet", "1234");
+	SocialNetwork SocNetwork("MamatNet", "1234");
 	// login test
 	SocNetwork.AdminLogin("bulbul");
 	cout << "\n";
@@ -483,13 +625,15 @@ int main()
 	cout << "\n";
 
 
-	SocNetwork.Login("l1@", "1234");	cout << "\n"; // leader login correct password
+	SocNetwork.Login("l1@", "1234");	cout << "\n"; // f1
 	SocNetwork.SendFriendRequest("f4@");
 	SocNetwork.Follow("l3@");
-	SocNetwork.Login("f2@", "1234");	cout << "\n"; // leader login correct password
+
+	SocNetwork.Login("f2@", "1234");	cout << "\n"; // f2
 	SocNetwork.SendFriendRequest("f4@");
 	SocNetwork.Follow("l3@");
-	SocNetwork.Login("f3@", "1234");	cout << "\n"; // leader login correct password
+
+	SocNetwork.Login("f3@", "1234");	cout << "\n"; // f3
 	SocNetwork.SendFriendRequest("f4@");
 	SocNetwork.Follow("l3@");
 	
@@ -499,10 +643,24 @@ int main()
 	SocNetwork.Login("f3@", "1234");
 	SocNetwork.ShowMessageList();
 
+	SocNetwork.BroadcastMessage("A message", "From the prime leader");	cout << "\n";
 
+	SocNetwork.Login("f4@", "1234");
+	SocNetwork.AcceptFriendRequest("l1@");
+	SocNetwork.AcceptFriendRequest("f2@");
+	//SocNetwork.AcceptFriendRequest("f3@");
 
-	//SocNetwork.BroadcastMessage("A message", "From the prime leader");	cout << "\n";
+	SocNetwork.DeleteUser("f3@");	cout << "\n";
 
+	SocNetwork.Login("l3@", "1234"); cout << "\n";
+
+	SocNetwork.AdminLogin("1234");	cout << "\n";
+	SocNetwork.DeleteUser("l1@");	cout << "\n";
+	SocNetwork.DeleteUser("f2@");	cout << "\n";
+	SocNetwork.DeleteUser("f3@");
+
+	SocNetwork.Login("l3@", "1234"); cout << "\n";
+	
 	/*
 	//needed tests:
 	void ShowFriendRequests(); //ofir - checked

@@ -42,7 +42,7 @@ void list_m::delete_head() {
 }
 
 void list_m::release() {
-	while (h != 0)
+	while (h)
 		delete_head();
 }
 
@@ -206,7 +206,7 @@ void list_l::delete_head() {
 }
 
 void list_l::release() {
-	while (h != 0)
+	while (h)
 		delete_head();
 }
 
