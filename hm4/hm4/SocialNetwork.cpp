@@ -18,7 +18,7 @@ SocialNetwork::SocialNetwork(string name, string password)
 	_Active_Leader = NULL;
 
 	_any_body_in = false;       //if there is anyone connected
-								//_email_connected = "" ;    //not sure if need to initialize
+								
 	_is_admin = false;
 	_is_leader = false;
 }
