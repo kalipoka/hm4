@@ -39,7 +39,7 @@ int main() {
 	//code to read from stdin.
 
 	
-	freopen("1.in", "r", stdin);               // open the input text
+	//freopen("1.in", "r", stdin);               // open the input text
 	while (!cin.eof()) {
 		
 		getline(cin, line);
@@ -149,7 +149,7 @@ int main() {
 
 		cerr << "Invalid input" << endl;
 	}
-	fclose(stdin);                            // open the input from text
+	//fclose(stdin);                            // open the input from text
 	
 	return 0; 
 };
