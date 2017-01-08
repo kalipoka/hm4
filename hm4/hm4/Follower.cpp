@@ -21,6 +21,7 @@ Follower::Follower(string name, string email, string password)
 **************************************/
 Follower::~Follower()
 {
+	_delete_messages_inBox();
 	_MessageBox->release();
 	_Friends->release();
 	_Friends->release();
@@ -163,7 +164,8 @@ void Follower::ShowMessageList() const
 **************************************/
 void Follower::AddMessage(Message& newMessage)
 {
-	_MessageBox->prepend(newMessage);
+	Message* tmp = new Message(newMessage);
+	_MessageBox->prepend(*tmp);
 }
 /*************************************
 * Reads a message of the follower (if succeeds)
@@ -229,6 +231,19 @@ bool Follower::isRequestExists(string mail)
 		index = _FRequests->get_current();
 	}
 	return false;
+}
+
+void Follower::_delete_messages_inBox()
+{
+	_MessageBox->go_to_first();
+	Message* index = _MessageBox->get_current();
+	while (index)
+	{
+		delete index;
+		_MessageBox->next();
+		index = _MessageBox->get_current();
+	}
+	return;
 }
 
 

@@ -33,6 +33,7 @@ public:
 	int NumUnreadMessages() const;
 	bool isFriend(string mail);
 	bool isRequestExists(string mail);
+	void _delete_messages_inBox();
 	// To do
 protected:
 
