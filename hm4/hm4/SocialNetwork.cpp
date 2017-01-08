@@ -261,6 +261,10 @@ Follower* SocialNetwork::_FollowerByMail(string email)
 
 void SocialNetwork::BroadcastMessage(string subject, string content)
 {
+	if (_is_admin) {
+		cout << BROADCAST_MESSAGE_FAIL << "\n";
+		return;
+	}
 	if (!_is_leader || !_any_body_in) {
 		cout << BROADCAST_MESSAGE_FAIL << "\n";
 		return;
@@ -280,7 +284,7 @@ void SocialNetwork::BroadcastMessage(string subject, string content)
 
 void SocialNetwork::ShowFriendRequests()
 {
-	if (!_any_body_in) {
+	if (!_any_body_in || _is_admin) {
 		cout << SHOW_FRIEND_REQUESTS_FAIL << "\n";
 		return;
 	}
@@ -293,7 +297,7 @@ void SocialNetwork::ShowFriendRequests()
 **************************************/
 void SocialNetwork::ShowFriendList()
 {
-	if (!_any_body_in) {
+	if (!_any_body_in || _is_admin) {
 		cout << SHOW_FRIEND_LIST_FAIL << "\n";
 		return;
 	}
@@ -508,7 +512,7 @@ void SocialNetwork::ShowMessageList()
 **************************************/
 void SocialNetwork::ReadMessage(int messageNum)
 {
-	if (!_any_body_in) // no one home
+	if ((!_any_body_in) || _is_admin) // no one home or admin tries to read message
 		cout << READ_MESSAGE_FAIL << "\n";
 	else             // some one connected         
 	{	
@@ -522,6 +526,11 @@ void SocialNetwork::ReadMessage(int messageNum)
 **************************************/
 void SocialNetwork::SendMessage(string email, string subject, string content)
 {
+	if (_is_admin)
+	{
+		cout << SEND_MESSAGE_FAIL << "\n";
+		return;
+	}
 	if ((_any_body_in) && _Active_Follower->isFriend(email))
 	{
 		Message* new_message;
@@ -540,6 +549,11 @@ void SocialNetwork::SendMessage(string email, string subject, string content)
 void SocialNetwork::Follow(string leaderEmail)
 {
 	int type = user_identifier(leaderEmail);
+	if (_is_admin)
+	{
+		cout << FOLLOW_FAIL << "\n";
+		return;
+	}
 
 	if ((!_any_body_in) || (type!=1))
 	{
@@ -567,7 +581,7 @@ void SocialNetwork::Follow(string leaderEmail)
 **************************************/
 void SocialNetwork::SendFriendRequest(string friendEmail)
 {
-	if (!_any_body_in) {
+	if (!_any_body_in || _is_admin ) {                                     // Alex fix big bug
 		cout << SEND_FRIEND_REQUEST_FAIL << "\n";
 		return;
 	}
@@ -613,6 +627,11 @@ void SocialNetwork::SendFriendRequest(string friendEmail)
 **************************************/
 void SocialNetwork::AcceptFriendRequest(string friendEmail)
 {
+	if (_is_admin)
+	{
+		cout << ACCEPT_FRIEND_REQUEST_FAIL << "\n";
+		return;
+	}
 	if (!_any_body_in) {
 		cout << ACCEPT_FRIEND_REQUEST_FAIL << "\n";
 		return;
@@ -638,6 +657,13 @@ void SocialNetwork::AcceptFriendRequest(string friendEmail)
 **************************************/
 void SocialNetwork::RemoveFriend(string friendEmail)
 {
+
+	if (_is_admin)
+	{
+		cout << REMOVE_FRIEND_FAIL << "\n";
+		return;
+	}
+
 	if (!_any_body_in) {
 		cout << REMOVE_FRIEND_FAIL << "\n";
 		return;
@@ -703,6 +729,14 @@ void SocialNetwork::FindUser(string partialName)
 //    @@@@@@@@@@@@@@@                DEBUUUUUUUUUUUUUUG             @@@@@@@@@@@@@@@@2
 int main()
 {
+	// the falling test debug
+
+
+
+
+
+
+	
 	Message msg1("alibaba", "shodedim", "tellmestory");
 	Message msg2("eli", "yossi", "chupar me la");
 	Message msg3("Sneh", "Shussman", "fuck me");
@@ -818,7 +852,7 @@ int main()
 	SocNetwork.Follow("zzzzzzzzzzzz");   cout << "\n"; // should fail - no such follower
 	SocNetwork.Follow("L2@gmail");  cout << "\n";  // shoud succeed
 	SocNetwork.Follow("L2@gmail");  cout << "\n";  // shoud fail - already follow this one
-
+	
 	int num = 6;
 	
 	return 0;

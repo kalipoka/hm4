@@ -1,0 +1,328 @@
+AdminLogin 1234
+CreateFollower f @1 1
+CreateFollower f @111 1
+CreateFollower F @2 1
+CreateFollower 3FF @3 1
+CreateFollower 3 @123 1
+CreateFollower F4 @4 1
+FindUser F
+FindUser FF
+Login 1@ 1
+Login @1 1
+SendFriendRequest 1`
+SendFriendRequest @1
+SendFriendRequest 12
+SendFriendRequest @2
+SendFriendRequest @3
+SendFriendRequest @4
+Logout
+SendFriendRequest @3
+Login @2 1
+SendFriendRequest @1
+SendFriendRequest 12
+SendFriendRequest @2
+SendFriendRequest @3
+SendFriendRequest @4
+Login @2 1
+SendFriendRequest @1
+SendFriendRequest 12
+SendFriendRequest @2
+SendFriendRequest @3
+SendFriendRequest @4
+Login @3 1
+SendFriendRequest @1
+SendFriendRequest 12
+SendFriendRequest @2
+SendFriendRequest @3
+SendFriendRequest @4
+ShowFriendRequests
+Login @4 1
+SendFriendRequest @1
+SendFriendRequest 12
+SendFriendRequest @2
+SendFriendRequest @3
+SendFriendRequest @4
+AdminLogin 1234
+DeleteUser @1
+Login @1 1
+Login @4 1
+ShowFriendRequests
+ShowFriendRequests
+ShowFriendList
+AcceptFriendRequest @3
+ShowFriendRequests
+Login @3 1
+ShowFriendList
+ShowFriendRequests
+AcceptFriendRequest @1
+AcceptFriendRequest @4
+AcceptFriendRequest @2
+Login @2 1
+ShowFriendRequests
+ShowFriendList
+AcceptFriendRequest @4
+ShowFriendRequests
+ShowFriendList
+Login @4 1
+ShowFriendRequests
+ShowFriendList
+ReadMessage 3
+SendMessage
+@5
+as
+as
+CreateFollower F5F @5 1
+SendFriendRequest @5
+SendMessage
+@5 
+as 
+as
+SendMessage 
+@4 
+as 
+as
+SendMessage
+ @2 
+ as 
+ as
+Login @2 1
+ShowMessageList
+ReadMessage 0
+ReadMessage 1
+ShowMessageList
+Login @2 1
+Login @5 1
+Login @2 1
+
+BroadcastMessage
+as
+as
+CreateLeader FF @6 1
+AdminLogin 1234
+CreateLeader FGFF @6 1
+BroadcastMessage
+as
+as
+SendFriendRequest @6
+Login @6 1
+Follow @6
+BroadcastMessage
+as
+as
+ShowMessageList
+ShowFriendRequests
+ShowFriendList
+SendFriendRequest @6
+SendFriendRequest @1
+SendFriendRequest @2
+Login @2 1
+ShowFriendRequests
+ShowFriendList
+AcceptFriendRequest @6
+ShowFriendRequests
+ShowFriendList
+Follow @6
+Follow @6
+Login @6 1
+BroadcastMessage
+as
+as
+Login @2 1
+ReadMessage 3
+ReadMessage 1
+ReadMessage 1
+Login @2 1
+Follow @6
+Login @1 1
+Follow @6
+Login @2 1
+Follow @6
+Login @3 1
+Follow @6
+Login @3 1
+Follow @6
+Login @4 1
+Follow @6
+Login @5 1
+Follow @6
+Login @6 1
+BroadcastMessage
+as
+as
+Login @5 1
+ShowFriendRequests
+ShowFriendList
+SendFriendRequest @4
+Login @4 1
+ShowFriendRequests
+ShowFriendList
+AcceptFriendRequest @5
+ShowFriendRequests
+ShowFriendList
+Login @5 1
+ShowFriendRequests
+ShowFriendList
+Login @4 1
+RemoveFriend @5
+ShowFriendRequests
+ShowFriendList
+Login @5 1
+ShowFriendRequests
+ShowFriendList
+ShowMessageList
+ReadMessage 1
+ShowMessageList
+Login @6 1
+BroadcastMessage
+as
+as
+Login @6 1
+BroadcastMessage
+as
+as
+Login @4 1
+ShowMessageList
+ReadMessage 2
+ShowMessageList
+AdminLogin 1234
+CreateLeader FF @6 1
+CreateLeader FDFF7 @7 1
+FindUser F
+Logout
+FindUser F
+AdminLogin 1234
+CreateLeader 1FFF2 @12 1
+Follow @12
+ShowMessageList
+FindUser F
+Login @1 1
+SendFriendRequest @12
+Login @2 1
+SendFriendRequest @12
+Login @3 1
+SendFriendRequest @12
+Login @4 1
+SendFriendRequest @12
+Login @5 1
+SendFriendRequest @12
+Login @6 1
+SendFriendRequest @12
+Login @7 1
+SendFriendRequest @12
+Login @8 1
+SendFriendRequest @12
+Login @12 1
+SendFriendRequest @12
+ShowFriendRequests
+ShowFriendList
+ShowMessageList
+AcceptFriendRequest @3
+AcceptFriendRequest @1
+AcceptFriendRequest @2
+AcceptFriendRequest @3
+AcceptFriendRequest @4
+AcceptFriendRequest @5
+AcceptFriendRequest @6
+AcceptFriendRequest @7
+AcceptFriendRequest @8
+AcceptFriendRequest @12
+ShowFriendRequests
+ShowFriendList
+ShowMessageList
+BroadcastMessage
+as sdfgsdf
+as fghdfg
+Login @2 1
+ShowFriendRequests
+ShowFriendList
+ShowMessageList
+Follow @12
+Login @2 1
+Follow @12
+Login @3 1
+Follow @12
+Login @4 1
+Follow @12
+Login @5 1
+Follow @12
+Login @6 1
+Follow @12
+Login @7 1
+Follow @12
+Login @8 1
+Follow @12
+Login @12 1
+BroadcastMessage
+as sdfgsdf
+as fghdfg
+Login @6 1
+ShowFriendRequests
+ShowFriendList
+ShowMessageList
+AdminLogin 1234
+CreateFollower AFFF @A 1
+CreateFollower FFFB @B 1
+Login @A 1
+SendFriendRequest @B
+Login @B 1
+SendFriendRequest @A
+AcceptFriendRequest @3
+AcceptFriendRequest @A
+Login @A 1
+ShowFriendRequests
+ShowFriendList
+ShowMessageList
+Login @B 1
+ShowFriendRequests
+ShowFriendList
+ShowMessageList
+SendMessage
+@12
+as as
+as as
+SendMessage
+@A
+as sdfg
+as as
+Login @12 1
+Login @B 1
+Login @A 1
+ShowMessageList
+Login @B 1
+SendMessage
+@A
+as ssfdghdfj
+as asss
+SendMessage
+@A
+as ss
+as asdgsdfh
+Login @A 1
+ReadMessage 2
+ShowMessageList
+SendFriendRequest @B
+SendFriendRequest @2
+Login @2 1
+ShowFriendRequests
+ShowFriendList
+ShowMessageList
+AcceptFriendRequest @A
+SendMessage
+@A
+hi ss
+as asdgsdfh
+Login @A 1
+ShowFriendRequests
+ShowFriendList
+ShowMessageList
+AdminLogin 1234
+FindUser FF
+DeleteUser @2
+Login @A 1
+ShowFriendRequests
+ShowFriendList
+ShowMessageList
+Login @6 1
+Follow @6
+FindUser F
+Exit

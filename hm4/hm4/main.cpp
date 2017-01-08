@@ -36,8 +36,12 @@ int main() {
 	const char* delims = " \t\n";
 	vector<string> tokens;
 	string line, subject, content, email;
+	//code to read from stdin.
 
+	
+	freopen("1.in", "r", stdin);               // open the input text
 	while (!cin.eof()) {
+		
 		getline(cin, line);
 		tokens = tokenize(line, delims);
 		if (tokens.size() == 0) {
@@ -145,5 +149,7 @@ int main() {
 
 		cerr << "Invalid input" << endl;
 	}
+	fclose(stdin);                            // open the input from text
+	
 	return 0; 
 };
