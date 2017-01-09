@@ -636,13 +636,15 @@ void SocialNetwork::AcceptFriendRequest(string friendEmail)
 		cout << ACCEPT_FRIEND_REQUEST_FAIL << "\n";
 		return;
 	}
+	Follower* TheFriend = _FollowerByMail(friendEmail);
 
 	if (_Active_Follower->isRequestExists(friendEmail)) {
-		_Active_Follower->AcceptedFriendRequest(*_FollowerByMail(friendEmail));
-		if (_FollowerByMail(friendEmail)->isRequestExists(friendEmail)) {
-			_FollowerByMail(friendEmail)->AddFriendRequest(*_Active_Follower); //add request before aproval on the accepted friend
-		}
-			_FollowerByMail(friendEmail)->AcceptedFriendRequest(*_Active_Follower); //add a friend to the list of the other person
+		if (TheFriend->isRequestExists(_Active_Follower->GetEmail()))
+			TheFriend->AcceptedFriendRequest(*_Active_Follower);
+		else
+			TheFriend->AddFriend(*_Active_Follower); //add request before aproval on the accepted friend
+		_Active_Follower->AcceptedFriendRequest(*TheFriend);
+		//TheFriend->AcceptedFriendRequest(*_Active_Follower); //add a friend to the list of the other person
 			cout << ACCEPT_FRIEND_REQUEST_SUCCESS << "\n";
 	}
 	else {

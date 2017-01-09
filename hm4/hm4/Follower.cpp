@@ -95,6 +95,15 @@ void Follower::AddFriendRequest(Follower& Friend)
 {
 	_FRequests->prepend(Friend);
 }
+
+/*************************************
+*Add a friend request to the follower
+*
+**************************************/
+void Follower::AddFriend(Follower& Friend)
+{
+	_Friends->prepend(Friend);
+}
 /*************************************
 * Accepts a friend request
 *
