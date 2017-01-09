@@ -86,7 +86,14 @@ void Follower::DisplayFriendList()
 		index = _Friends->get_current();
 	}
 }
-
+/*************************************
+*Add a friend request to the follower
+*
+**************************************/
+void Follower::AddFriend(Follower& Friend)
+{
+	_Friends->prepend(Friend);
+}
 /*************************************
 *Add a friend request to the follower
 *
